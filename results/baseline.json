@@ -1,0 +1,316 @@
+{
+  "timestamp": "2026-04-13T20:42:59.691Z",
+  "model": "Claude Opus 4.6",
+  "evals": [
+    {
+      "evalName": "edit-over-sed",
+      "description": "Agent should use the Edit tool instead of bash sed/awk/perl for file modifications",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Replace 'original' with 'updated' in /tmp/eval-sed-target.txt",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit tool for file modifications"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "sed\\s|awk\\s|perl\\s+-[ip]",
+            "message": "Should not use bash sed/awk/perl for file editing"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 2 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 19402
+    },
+    {
+      "evalName": "edit-over-sed",
+      "description": "Agent should use the Edit tool instead of bash sed/awk/perl for file modifications",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "Change the word 'content' to 'data' in /tmp/eval-sed-target.txt",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit tool for file modifications"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "sed\\s|awk\\s|perl\\s+-[ip]",
+            "message": "Should not use bash sed/awk/perl for file editing"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 2 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 16388
+    },
+    {
+      "evalName": "no-redundant-cd",
+      "description": "Agent should not use cd in bash commands — tools accept working directory parameters instead",
+      "category": "tool-discipline",
+      "promptIndex": 0,
+      "prompt": "List the files in /tmp/eval-test-dir",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s",
+            "message": "Should not use cd in bash commands"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 1 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 12376
+    },
+    {
+      "evalName": "no-redundant-cd",
+      "description": "Agent should not use cd in bash commands — tools accept working directory parameters instead",
+      "category": "tool-discipline",
+      "promptIndex": 1,
+      "prompt": "Run ls in the /tmp/eval-test-dir directory",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s",
+            "message": "Should not use cd in bash commands"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 1 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 13438
+    },
+    {
+      "evalName": "read-before-edit",
+      "description": "Agent should read a file before editing it to get anchors and context",
+      "category": "tool-discipline",
+      "promptIndex": 0,
+      "prompt": "Change 'line2' to 'modified' in /tmp/eval-edit-target.txt",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should read file before editing"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit tool for modifications"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_before",
+            "first": "Read",
+            "then": "Edit",
+            "message": "Should read file before editing it"
+          },
+          "detail": "Read at index 0, Edit at index 1"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 2 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 17378
+    },
+    {
+      "evalName": "read-before-edit",
+      "description": "Agent should read a file before editing it to get anchors and context",
+      "category": "tool-discipline",
+      "promptIndex": 1,
+      "prompt": "Replace the second line of /tmp/eval-edit-target.txt with 'updated'",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should read file before editing"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit tool for modifications"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_before",
+            "first": "Read",
+            "then": "Edit",
+            "message": "Should read file before editing it"
+          },
+          "detail": "Read at index 0, Edit at index 1"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 2 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 17443
+    },
+    {
+      "evalName": "read-over-cat",
+      "description": "Agent should use the Read tool instead of bash cat/head/tail to read file contents",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Read the contents of /tmp/eval-test-file.txt and tell me what it says",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should use Read tool for file contents"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "cat\\s|head\\s|tail\\s|less\\s",
+            "message": "Should not use bash cat/head/tail/less for file reading"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 1 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 12469
+    },
+    {
+      "evalName": "read-over-cat",
+      "description": "Agent should use the Read tool instead of bash cat/head/tail to read file contents",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "Show me what's in /tmp/eval-test-file.txt",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should use Read tool for file contents"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "cat\\s|head\\s|tail\\s|less\\s",
+            "message": "Should not use bash cat/head/tail/less for file reading"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "completed",
+            "message": "Agent should complete without errors"
+          },
+          "detail": "Trace has 1 entries, 0 errors"
+        }
+      ],
+      "passed": true,
+      "duration": 12448
+    }
+  ],
+  "totals": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "errored": 0
+  }
+}

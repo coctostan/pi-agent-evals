@@ -11,13 +11,18 @@
  * Commands:
  *   /eval-trace  → dump current in-memory trace (debugging)
  *   /eval-check  → run assertions for an eval against the current trace
+ *   /eval-run    → run eval(s) via cmux and report results
  */
 
-import { join } from "node:path";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { checkAssertions } from "./src/assertions.js";
-import { loadEvalDefinition } from "./src/loader.js";
+import { listEvalDefinitions, loadEvalDefinition } from "./src/loader.js";
+import { checkCmuxEnvironment, runSingleEval } from "./src/runner/cmux-runner.js";
+import type { EvalRunResult, RunSummary } from "./src/runner/types.js";
 import { Tracer } from "./src/tracer.js";
+import type { EvalDefinition } from "./src/types.js";
 
 // Re-export for external consumers
 export { checkAssertions } from "./src/assertions.js";
@@ -116,6 +121,152 @@ const extension = (pi: ExtensionAPI): void => {
       lines.push("", `Result: ${passed}/${total} passed`);
 
       ctx.ui.notify(lines.join("\n"), allPassed ? "info" : "warning");
+    },
+  });
+
+  pi.registerCommand("eval-run", {
+    description: "Run eval(s) via cmux: /eval-run <name|category|all> [--baseline]",
+    handler: async (args, ctx) => {
+      // 1. Parse args
+      const parts = (args as string)?.trim().split(/\s+/).filter(Boolean) ?? [];
+      const target = parts.find((p) => !p.startsWith("--"));
+      const baseline = parts.includes("--baseline");
+
+      if (!target) {
+        ctx.ui.notify(
+          "Usage: /eval-run <name|category|all> [--baseline]\n\n" +
+            "Examples:\n" +
+            "  /eval-run all              Run all evals\n" +
+            "  /eval-run all --baseline   Run all and save as baseline\n" +
+            "  /eval-run read-over-cat    Run a specific eval\n" +
+            "  /eval-run tool-routing     Run all evals in a category",
+          "warning",
+        );
+        return;
+      }
+
+      // 2. Check cmux
+      const cmuxEnv = checkCmuxEnvironment();
+      if (!cmuxEnv.available) {
+        ctx.ui.notify(`cmux not available: ${cmuxEnv.message}`, "error");
+        return;
+      }
+
+      // 3. Resolve evals
+      const evalsDir = join(ctx.cwd, "evals");
+      const allNames = listEvalDefinitions(evalsDir);
+      if (allNames.length === 0) {
+        ctx.ui.notify(`No eval definitions found in ${evalsDir}/`, "error");
+        return;
+      }
+
+      let evalDefs: EvalDefinition[];
+      if (target === "all") {
+        evalDefs = allNames.map((name) => loadEvalDefinition(name, evalsDir));
+      } else if (allNames.includes(target)) {
+        evalDefs = [loadEvalDefinition(target, evalsDir)];
+      } else {
+        const allDefs = allNames.map((name) => loadEvalDefinition(name, evalsDir));
+        const categoryMatches = allDefs.filter((d) => d.category === target);
+        if (categoryMatches.length > 0) {
+          evalDefs = categoryMatches;
+        } else {
+          const categories = [...new Set(allDefs.map((d) => d.category))];
+          ctx.ui.notify(
+            `Unknown target: "${target}"\n\n` +
+              `Available evals: ${allNames.join(", ")}\n` +
+              `Available categories: ${categories.join(", ")}`,
+            "warning",
+          );
+          return;
+        }
+      }
+
+      // 4. Build runner options
+      const outputDir = resolve(join(ctx.cwd, "results"));
+      const options = {
+        timeout: 120_000,
+        outputDir,
+        evalsDir,
+        projectDir: ctx.cwd,
+        model: ctx.model?.name ?? "unknown",
+        piStartupDelay: 5_000,
+        pollInterval: 1_000,
+      };
+
+      ctx.ui.notify(`Running ${evalDefs.length} eval(s)...`, "info");
+
+      // 5. Run evals
+      const allResults: EvalRunResult[] = [];
+      for (const evalDef of evalDefs) {
+        for (let promptIdx = 0; promptIdx < evalDef.prompts.length; promptIdx++) {
+          const result = await runSingleEval(
+            evalDef,
+            promptIdx,
+            evalDef.prompts[promptIdx],
+            options,
+          );
+          allResults.push(result);
+        }
+      }
+
+      // 6. Build summary
+      const summary: RunSummary = {
+        timestamp: new Date().toISOString(),
+        model: options.model,
+        evals: allResults,
+        totals: {
+          total: allResults.length,
+          passed: allResults.filter((r) => r.passed).length,
+          failed: allResults.filter((r) => !r.passed && !r.error).length,
+          errored: allResults.filter((r) => !!r.error).length,
+        },
+      };
+
+      // 7. Write results
+      mkdirSync(outputDir, { recursive: true });
+      const pad = (n: number) => String(n).padStart(2, "0");
+      const now = new Date();
+      const ts =
+        `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}` +
+        `-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const resultsPath = join(outputDir, `${ts}.json`);
+      writeFileSync(resultsPath, JSON.stringify(summary, null, 2), "utf-8");
+
+      const writtenFiles = [resultsPath];
+      if (baseline) {
+        const baselinePath = join(outputDir, "baseline.json");
+        writeFileSync(baselinePath, JSON.stringify(summary, null, 2), "utf-8");
+        writtenFiles.push(baselinePath);
+      }
+
+      // 8. Format and display results
+      const lines: string[] = ["═══ EVAL RESULTS ═══", ""];
+      for (const r of allResults) {
+        const icon = r.error ? "⚠" : r.passed ? "✓" : "✗";
+        const status = r.error ? `ERROR: ${r.error}` : r.passed ? "PASS" : "FAIL";
+        lines.push(
+          `${icon} ${r.evalName}[${r.promptIndex}] — ${status} (${r.duration}ms)`,
+        );
+        if (!r.error) {
+          for (const a of r.assertions) {
+            lines.push(
+              `  ${a.pass ? "✓" : "✗"} ${a.assertion.message} — ${a.detail}`,
+            );
+          }
+        }
+      }
+      const { totals } = summary;
+      lines.push(
+        "",
+        `Total: ${totals.total} | Passed: ${totals.passed} | Failed: ${totals.failed} | Errors: ${totals.errored}`,
+      );
+      lines.push("", ...writtenFiles.map((f) => `Written: ${f}`));
+
+      ctx.ui.notify(
+        lines.join("\n"),
+        totals.passed === totals.total ? "info" : "warning",
+      );
     },
   });
 };
