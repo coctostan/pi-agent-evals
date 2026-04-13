@@ -31,19 +31,19 @@ A working eval system where:
 - `/eval-trace` command for debugging trace output
 - 4 initial eval definitions: read-over-cat, read-before-edit, no-redundant-cd, edit-over-sed
 - CMUX runner orchestrating clean pi sessions per eval
-- CLI entry: `npx pi-eval run [eval-name|category|all]`
+- `/eval-run <name|category|all> [--baseline]` pi command for automated eval execution
 - Baseline results file (`results/baseline.json`)
 
 ### Should Have / Nice to Have
-- `--model` flag for runner CLI
-- `--timeout` and `--output-json` flags
+- `--model` flag for `/eval-run`
+- `--timeout` flag for `/eval-run`
 - `--output-dir` for custom results location
 
 ### Explicitly Deferred
 - Model matrix (`--models` looping over multiple models) — v2
 - Thinking-level matrix (`--thinking off,low,medium,high`) — v2
 - Per-tool-description evals — v2
-- Historical comparison (`npx pi-eval compare`) — v2
+- Historical comparison (`/eval-compare`) — v2
 - CI integration (GitHub Action gating merge on regression) — v2
 
 ### Out of Scope

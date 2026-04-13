@@ -8,9 +8,6 @@
   "pi": {
     "extensions": ["dist/index.js"]
   },
-  "bin": {
-    "pi-eval": "./dist/src/runner/cli.js"
-  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

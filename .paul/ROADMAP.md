@@ -16,11 +16,14 @@ Phases: 4 of 5 complete
 | B | Assertions + /eval-check | B-01 | Complete | 2026-04-13 |
 | C | Eval Definitions (4 initial) | C-01 | Complete | 2026-04-13 |
 | D | CMUX Runner | D-01 | Complete | 2026-04-13 |
-| E | Baseline Run + Report | TBD | Not started | - |
+| E | Baseline Run + Report | E-01 | Planning | - |
 
 ## Phase Details
-
-Phases will be defined during `/paul:plan`.
+### Phase E: Baseline Run + Report
+**Scope:** Add `/eval-run` pi command (sole eval interface), remove CLI, create README, execute first baseline.
+**Plan:** `.paul/phases/05-baseline-run-report/05-01-PLAN.md`
+**Tasks:** 3 auto + 1 checkpoint (human runs `/eval-run all --baseline` in pi)
+**Files:** `index.ts`, `src/runner/cli.ts` (deleted), `package.json`, `README.md`, `results/baseline.json`
 
 ---
 *Roadmap created: 2026-04-13*

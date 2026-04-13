@@ -158,12 +158,13 @@ function createPane(cmuxBin: string): string {
   } catch {
     // JSON parse failed — try line-based parsing
     const trimmed = output.trim();
-    if (trimmed.startsWith("surface:") || trimmed.startsWith("pane:")) {
-      // If it returned a pane ref, get the surface
+    // Handle "OK surface:N pane:N workspace:N" format
+    const surfaceMatch = trimmed.match(/surface:(\d+)/);
+    if (surfaceMatch) {
+      return `surface:${surfaceMatch[1]}`;
+    }
       if (trimmed.startsWith("pane:")) {
-        return getSurfaceForPane(cmuxBin, trimmed);
-      }
-      return trimmed;
+      return getSurfaceForPane(cmuxBin, trimmed);
     }
   }
 

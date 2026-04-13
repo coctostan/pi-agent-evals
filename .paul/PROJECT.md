@@ -18,20 +18,20 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - Assertion engine evaluates traces against 6 assertion types (Phase B — shipped)
 - `/eval-check` command for manual validation in live sessions (Phase B — shipped)
 - YAML eval loader with field validation (Phase B — shipped)
-- CMUX runner + CLI for automated eval execution (Phase D — shipped)
+- CMUX runner + `/eval-run` command for automated eval execution (Phase D+E — shipped)
 
 ## Scope Snapshot
 ### Active
 - ✓ Tracer extension (lifecycle hooks → trace.json) — Phase A
 - ✓ Assertion engine + `/eval-check` command — Phase B
 - ✓ 4 initial eval definitions (YAML) — Phase C
-- ✓ CMUX runner + CLI (`npx pi-eval run`) — Phase D
+- ✓ CMUX runner + `/eval-run` command — Phase D+E
 - Baseline run + results
 
 ### Planned
 - Model matrix (`--models` flag)
 - Thinking-level matrix (`--thinking` flag)
-- Historical comparison (`npx pi-eval compare`)
+- Historical comparison (`/eval-compare`)
 - CI integration (GitHub Action)
 
 ### Out of Scope
@@ -51,7 +51,7 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 
 ## Success Metrics
 - `/eval-check read-over-cat` produces correct pass/fail in a live session
-- `npx pi-eval run all` completes 4 evals unattended
+- `/eval-run all` completes 4 evals unattended
 - `results/baseline.json` exists with current pi's scores
 
 ## Key Decisions
@@ -61,6 +61,7 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | YAML eval definitions | Human-readable, easy to add new evals | 2026-04-13 | Active |
 | Layered artifact model (`PROJECT.md` + `PRD.md`) adopted at init | Keep hot-path context concise while preserving deeper product definition | 2026-04-13 | Active |
 | `completed` assertion = non-empty trace + zero errors | User-confirmed: both conditions required, not just "agent ran" | 2026-04-13 | Active |
+| CLI removed in favor of `/eval-run` pi command | Single interface, no redundant code path; CLI required cmux anyway | 2026-04-13 | Active |
 
 ## Links
 - `PRD.md` — deeper product-definition context

@@ -13,6 +13,11 @@ import type {
   ToolTraceEntry,
 } from "./types.js";
 
+/** Case-insensitive tool name comparison (pi reports lowercase, evals may use capitalized). */
+function toolNameMatch(traceName: string, assertionName: string): boolean {
+  return traceName.toLowerCase() === assertionName.toLowerCase();
+}
+
 /**
  * Evaluate all assertions against a trace.
  * Returns one AssertionResult per assertion, in the same order.
@@ -57,7 +62,7 @@ function checkToolUsed(
   trace: EvalTrace,
   assertion: Extract<Assertion, { type: "tool_used" }>,
 ): AssertionResult {
-  const matches = trace.entries.filter((e) => e.toolName === assertion.tool);
+  const matches = trace.entries.filter((e) => toolNameMatch(e.toolName, assertion.tool));
   if (matches.length > 0) {
     return {
       pass: true,
@@ -82,7 +87,7 @@ function checkToolNotUsed(
   assertion: Extract<Assertion, { type: "tool_not_used" }>,
 ): AssertionResult {
   const toolEntries = trace.entries.filter(
-    (e) => e.toolName === assertion.tool,
+    (e) => toolNameMatch(e.toolName, assertion.tool),
   );
 
   if (toolEntries.length === 0) {
@@ -139,10 +144,10 @@ function checkToolBefore(
   assertion: Extract<Assertion, { type: "tool_before" }>,
 ): AssertionResult {
   const firstIdx = trace.entries.findIndex(
-    (e) => e.toolName === assertion.first,
+    (e) => toolNameMatch(e.toolName, assertion.first),
   );
   const thenIdx = trace.entries.findIndex(
-    (e) => e.toolName === assertion.then,
+    (e) => toolNameMatch(e.toolName, assertion.then),
   );
 
   if (firstIdx === -1) {
@@ -181,7 +186,7 @@ function checkToolCalledWith(
   assertion: Extract<Assertion, { type: "tool_called_with" }>,
 ): AssertionResult {
   const toolEntries = trace.entries.filter(
-    (e) => e.toolName === assertion.tool,
+    (e) => toolNameMatch(e.toolName, assertion.tool),
   );
 
   if (toolEntries.length === 0) {
