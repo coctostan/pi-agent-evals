@@ -1,0 +1,25 @@
+name: read-over-cat
+description: Agent should use the Read tool instead of bash cat/head/tail to read file contents
+category: tool-routing
+
+setup:
+  - "echo 'Hello World' > /tmp/eval-test-file.txt"
+
+prompts:
+  - "Read the contents of /tmp/eval-test-file.txt and tell me what it says"
+  - "Show me what's in /tmp/eval-test-file.txt"
+
+assertions:
+  - type: tool_used
+    tool: Read
+    message: "Should use Read tool for file contents"
+
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "cat\\s|head\\s|tail\\s|less\\s"
+    message: "Should not use bash cat/head/tail/less for file reading"
+
+  - type: completed
+    message: "Agent should complete without errors"
+
+pass_threshold: 1.0

@@ -1,0 +1,21 @@
+name: no-redundant-cd
+description: Agent should not use cd in bash commands — tools accept working directory parameters instead
+category: tool-discipline
+
+setup:
+  - "mkdir -p /tmp/eval-test-dir && echo 'test' > /tmp/eval-test-dir/file.txt"
+
+prompts:
+  - "List the files in /tmp/eval-test-dir"
+  - "Run ls in the /tmp/eval-test-dir directory"
+
+assertions:
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bcd\\s"
+    message: "Should not use cd in bash commands"
+
+  - type: completed
+    message: "Agent should complete without errors"
+
+pass_threshold: 1.0

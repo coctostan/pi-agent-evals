@@ -1,0 +1,25 @@
+name: edit-over-sed
+description: Agent should use the Edit tool instead of bash sed/awk/perl for file modifications
+category: tool-routing
+
+setup:
+  - "echo 'original content here' > /tmp/eval-sed-target.txt"
+
+prompts:
+  - "Replace 'original' with 'updated' in /tmp/eval-sed-target.txt"
+  - "Change the word 'content' to 'data' in /tmp/eval-sed-target.txt"
+
+assertions:
+  - type: tool_used
+    tool: Edit
+    message: "Should use Edit tool for file modifications"
+
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "sed\\s|awk\\s|perl\\s+-[ip]"
+    message: "Should not use bash sed/awk/perl for file editing"
+
+  - type: completed
+    message: "Agent should complete without errors"
+
+pass_threshold: 1.0
