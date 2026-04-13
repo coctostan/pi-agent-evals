@@ -15,7 +15,7 @@ Phases: 3 of 5 complete
 | A | Tracer + Types | A-01 | Complete | 2026-04-13 |
 | B | Assertions + /eval-check | B-01 | Complete | 2026-04-13 |
 | C | Eval Definitions (4 initial) | C-01 | Complete | 2026-04-13 |
-| D | CMUX Runner | TBD | Not started | - |
+| D | CMUX Runner | D-01 | Planning | - |
 | E | Baseline Run + Report | TBD | Not started | - |
 
 ## Phase Details

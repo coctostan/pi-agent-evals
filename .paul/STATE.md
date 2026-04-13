@@ -5,18 +5,16 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase C complete — ready for Phase D planning
-
+**Current focus:** Phase D complete — ready for merge gate then Phase E planning
 ## Current Position
-
 Milestone: v0.1 Initial Release
-Phase: D of 5 (CMUX Runner)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-13 — Phase C complete, transitioned to Phase D
+Phase: D of 5 (CMUX Runner) — Complete
+Plan: D-01 complete
+Status: UNIFY complete, loop closed
+Last activity: 2026-04-13 — Phase D UNIFY complete
 Progress:
-- Milestone: [▓▓▓▓▓▓░░░░] 60%
-- Phase C: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Milestone: [▓▓▓▓▓▓▓▓░░] 80%
+- Phase D: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
@@ -36,6 +34,9 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Drop argumentsHash — stringified args suffice for assertion matching
 - Clear trace on agent_start for clean per-loop measurement
 - `completed` assertion checks both non-empty trace AND zero isError entries (not just "agent ran")
+- Use cmux panes (not workspaces) for lighter eval lifecycle
+- Run pi from project dir (not temp dir) for automatic extension loading
+- Configurable timing: --startup-delay, --poll-interval for flexible pi readiness detection
 
 ### Deferred Issues
 None yet.
@@ -46,12 +47,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase C complete, ready to plan Phase D
-Next action: /paul:plan for Phase D (CMUX Runner)
-Resume file: .paul/ROADMAP.md
-Branch: main
-Last commit: 4e0a6dc (squash merge of PR #3)
-PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: MERGED)
+Stopped at: Phase D UNIFY complete
+Next action: Merge gate → Phase transition → /paul:plan for Phase E
+Resume file: .paul/phases/D-cmux-runner/D-01-SUMMARY.md
+Branch: feature/D-cmux-runner
+Last commit: eac7281
+PR: https://github.com/coctostan/pi-agent-evals/pull/4 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
