@@ -5,25 +5,25 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase B complete — transitioning to Phase C
+**Current focus:** Phase C — Eval Definitions (4 initial)
 
 ## Current Position
 
 Milestone: v0.1 Initial Release
 Phase: C of 5 (Eval Definitions — 4 initial)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-13 — Phase B complete, transitioned to Phase C
+Plan: C-01 created, awaiting approval
+Status: PLAN created, ready for APPLY
+Last activity: 2026-04-13 — Created .paul/phases/C-eval-definitions/C-01-PLAN.md
 Progress:
 - Milestone: [▓▓▓▓░░░░░░] 40%
-- Phase B: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase C: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
+  ✓        ○        ○     [Plan created, awaiting approval]
 ```
 
 ## Accumulated Context
@@ -46,11 +46,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase B complete, ready to plan Phase C
-Next action: /paul:plan for Phase C (Eval Definitions — 4 initial)
-Resume file: .paul/ROADMAP.md
+Stopped at: Plan C-01 created
+Next action: Review and approve plan, then run /paul:apply
+Resume file: .paul/phases/C-eval-definitions/C-01-PLAN.md
 Branch: main
-Last commit: bced19e (squash merge of PR #2)
+Last commit: 5eb0ddf
 PR: https://github.com/coctostan/pi-agent-evals/pull/2 (state: MERGED)
 
 ---
