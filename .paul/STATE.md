@@ -46,11 +46,11 @@ None yet.
 
 Last session: 2026-04-13
 Stopped at: Phase A UNIFY complete
-Next action: Merge PR #1 and transition to Phase B, then /paul:plan
+Next action: /paul:plan for Phase B (Assertions + /eval-check)
 Resume file: .paul/phases/A-tracer-types/A-01-SUMMARY.md
-### Git State
-Branch: feature/A-tracer-types
-PR: https://github.com/coctostan/pi-agent-evals/pull/1 (state: open, pending merge)
+Branch: main
+Last commit: 8dfbc4d (squash merge of PR #1)
+PR: https://github.com/coctostan/pi-agent-evals/pull/1 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*

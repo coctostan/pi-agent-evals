@@ -6,13 +6,13 @@ A pi extension + runner that measures specific agent behaviors — tool routing,
 ## Current Milestone
 **v0.1 Initial Release** (v0.1.0)
 Status: In progress
-Phases: 0 of 5 complete
+Phases: 1 of 5 complete
 
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
-| A | Tracer + Types | A-01 | Planning | - |
+| A | Tracer + Types | A-01 | Complete | 2026-04-13 |
 | B | Assertions + /eval-check | TBD | Not started | - |
 | C | Eval Definitions (4 initial) | TBD | Not started | - |
 | D | CMUX Runner | TBD | Not started | - |
