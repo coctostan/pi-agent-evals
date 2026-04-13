@@ -11,10 +11,10 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 Milestone: v0.2 Model & Thinking Matrix
 Phase: F of 3 (Model & Thinking Discovery + Flags)
 Plan: F-01 complete
-Status: APPLY complete, ready for UNIFY
-Last activity: 2026-04-13 — Phase F APPLY complete (3/3 tasks passed)
+Status: UNIFY complete, loop closed
+Last activity: 2026-04-13 — Phase F UNIFY complete
 Progress:
-- Milestone: [▓▓▓░░░░░░░] 30%
+- Milestone: [▓▓▓░░░░░░░] 33%
 - Phase F: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
@@ -22,7 +22,7 @@ Progress:
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — Phase F done, ready for Phase G]
 ```
 
 ## Accumulated Context
@@ -53,9 +53,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase F APPLY complete
-Next action: /paul:unify for Phase F
-Resume file: .paul/phases/F-model-thinking-discovery/F-01-PLAN.md
+Stopped at: Phase F UNIFY complete
+Next action: Merge PR #6, then /paul:plan for Phase G
+Resume file: .paul/phases/F-model-thinking-discovery/F-01-SUMMARY.md
 Branch: feature/F-model-thinking-discovery
 PR: https://github.com/coctostan/pi-agent-evals/pull/6 (state: OPEN)
 
