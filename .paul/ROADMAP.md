@@ -4,26 +4,34 @@
 A pi extension + runner that measures specific agent behaviors — tool routing, discipline, preconditions — not end-to-end task completion.
 
 ## Current Milestone
-**v0.1 Initial Release** (v0.1.0)
-Status: ✅ Complete
-Phases: 5 of 5 complete
+No active milestone.
+Run `/paul:discuss` or `/paul:milestone` to define the next milestone.
 
-## Phases
+## Next Milestone
+Run `/paul:discuss` or `/paul:milestone` to define.
 
-| Phase | Name | Plans | Status | Completed |
-|-------|------|-------|--------|-----------|
-| A | Tracer + Types | A-01 | Complete | 2026-04-13 |
-| B | Assertions + /eval-check | B-01 | Complete | 2026-04-13 |
-| C | Eval Definitions (4 initial) | C-01 | Complete | 2026-04-13 |
-| D | CMUX Runner | D-01 | Complete | 2026-04-13 |
-| E | Baseline Run + Report | E-01 | Complete | 2026-04-13 |
+Planned features from PROJECT.md:
+- Model matrix (`--models` flag)
+- Thinking-level matrix (`--thinking` flag)
+- Historical comparison (`/eval-compare`)
+- CI integration (GitHub Action)
 
-## Phase Details
-### Phase E: Baseline Run + Report
-**Scope:** Add `/eval-run` pi command (sole eval interface), remove CLI, create README, execute first baseline.
-**Plan:** `.paul/phases/05-baseline-run-report/05-01-PLAN.md`
-**Tasks:** 3 auto + 1 checkpoint (human runs `/eval-run all --baseline` in pi)
-**Files:** `index.ts`, `src/runner/cli.ts` (deleted), `package.json`, `README.md`, `results/baseline.json`
+## Completed Milestones
+
+<details>
+<summary>v0.1 Initial Release — 2026-04-13 (5 phases)</summary>
+
+| Phase | Name | Plans | Completed |
+|-------|------|-------|-----------|
+| A | Tracer + Types | A-01 | 2026-04-13 |
+| B | Assertions + /eval-check | B-01 | 2026-04-13 |
+| C | Eval Definitions (4 initial) | C-01 | 2026-04-13 |
+| D | CMUX Runner | D-01 | 2026-04-13 |
+| E | Baseline Run + Report | E-01 | 2026-04-13 |
+
+Archive: `.paul/milestones/v0.1.0-ROADMAP.md`
+
+</details>
 
 ---
-*Roadmap created: 2026-04-13*
+*Roadmap updated: 2026-04-13 — v0.1 milestone complete*

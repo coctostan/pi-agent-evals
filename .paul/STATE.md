@@ -5,23 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase E UNIFY complete — v0.1 milestone feature-complete
+**Current focus:** v0.1 milestone complete — ready for next milestone
+
 ## Current Position
-Milestone: v0.1 Initial Release
-Phase: E of 5 (Baseline Run + Report) — Complete
-Plan: 05-01 complete
-Status: UNIFY complete, loop closed
-Last activity: 2026-04-13 — Phase E UNIFY complete, baseline 8/8
+Milestone: Awaiting next milestone
+Phase: None active
+Plan: None
+Status: Milestone v0.1 Initial Release complete — ready for next
+Last activity: 2026-04-13 — Milestone completed
 Progress:
-- Milestone: [▓▓▓▓▓▓▓▓▓▓] 100%
-- Phase E: [▓▓▓▓▓▓▓▓▓▓] 100%
+- v0.1 Initial Release: [▓▓▓▓▓▓▓▓▓▓] 100% ✓
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — v0.1 milestone complete]
+  ○        ○        ○     [Milestone complete - ready for next]
 ```
 
 ## Accumulated Context
@@ -50,11 +50,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: v0.1 milestone complete, merged to main
-Next action: v0.1 milestone complete — plan v0.2 or celebrate 🎉
-Resume file: .paul/ROADMAP.md
+Stopped at: Milestone v0.1 Initial Release complete
+Next action: /paul:discuss or /paul:milestone to define next milestone
+Resume file: .paul/MILESTONES.md
 Branch: main
-Last commit: caf5de6 (squash merge of PR #5)
+Last commit: 107d3eb (milestone v0.1 complete)
 PR: https://github.com/coctostan/pi-agent-evals/pull/5 (state: MERGED)
 
 ---

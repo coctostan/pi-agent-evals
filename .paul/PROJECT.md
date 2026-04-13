@@ -10,8 +10,8 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | Attribute | Value |
 |-----------|-------|
 | Version | 0.1.0 |
-| Status | v0.1 Complete ✅ |
-| Last Updated | 2026-04-13 |
+| Status | v0.1 Released ✅ |
+| Last Updated | 2026-04-13 (post-milestone) |
 
 **Current system summary:**
 - Tracer extension captures tool calls via lifecycle hooks (Phase A — shipped)
@@ -21,12 +21,12 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - CMUX runner + `/eval-run` command for automated eval execution (Phase D+E — shipped)
 
 ## Scope Snapshot
-### Active
-- ✓ Tracer extension (lifecycle hooks → trace.json) — Phase A
-- ✓ Assertion engine + `/eval-check` command — Phase B
-- ✓ 4 initial eval definitions (YAML) — Phase C
-- ✓ CMUX runner + `/eval-run` command — Phase D+E
-- Baseline run + results
+### Validated (v0.1)
+- [x] Tracer extension (lifecycle hooks → trace.json) — v0.1
+- [x] Assertion engine + `/eval-check` command — v0.1
+- [x] 4 initial eval definitions (YAML) — v0.1
+- [x] CMUX runner + `/eval-run` command — v0.1
+- [x] Baseline run + results — v0.1
 
 ### Planned
 - Model matrix (`--models` flag)
@@ -50,9 +50,11 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - Minimal runtime dependencies (`yaml` for eval parsing)
 
 ## Success Metrics
-- `/eval-check read-over-cat` produces correct pass/fail in a live session
-- `/eval-run all` completes 4 evals unattended
-- `results/baseline.json` exists with current pi's scores
+| Metric | Target | Current | Status |
+|--------|--------|---------|--------|
+| `/eval-check read-over-cat` correct pass/fail | Works | ✅ Works | Validated |
+| `/eval-run all` completes unattended | 4 evals | ✅ 4 evals (8 prompts) | Validated |
+| `results/baseline.json` exists | Exists | ✅ 8/8 passed | Validated |
 
 ## Key Decisions
 | Decision | Rationale | Date | Status |
@@ -69,4 +71,4 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - `~/pi/workspace/thinkingSpace/plans/pi-agent-evals-build-plan.md` — original build plan
 
 ---
-*Created: 2026-04-13*
+*Last updated: 2026-04-13 after v0.1 Initial Release*
