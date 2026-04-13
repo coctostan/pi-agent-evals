@@ -10,19 +10,19 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 ## Current Position
 Milestone: v0.2 Model & Thinking Matrix
 Phase: F of 3 (Model & Thinking Discovery + Flags)
-Plan: F-01 created, awaiting approval
-Status: PLAN created, ready for APPLY
-Last activity: 2026-04-13 — Created F-01-PLAN.md
+Plan: F-01 complete
+Status: APPLY complete, ready for UNIFY
+Last activity: 2026-04-13 — Phase F APPLY complete (3/3 tasks passed)
 Progress:
-- Milestone: [░░░░░░░░░░] 0%
-- Phase F: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓░░░░░░░] 30%
+- Phase F: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
 ```
 
 ## Accumulated Context
@@ -41,6 +41,8 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - /eval-run pi command as sole eval interface; CLI removed as redundant (Phase E)
 - Case-insensitive tool name matching in assertions (Phase E bugfix — pi reports lowercase)
 - cmux surface ref parser handles 'OK surface:N pane:N workspace:N' format (Phase E bugfix)
+- Flag renamed from --models to --model (singular, matches pi CLI convention) (Phase F)
+- Model validation via pi --list-models with graceful fallback (Phase F)
 
 ### Deferred Issues
 None yet.
@@ -51,10 +53,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Plan F-01 created
-Next action: Review and approve plan, then run /paul:apply
+Stopped at: Phase F APPLY complete
+Next action: /paul:unify for Phase F
 Resume file: .paul/phases/F-model-thinking-discovery/F-01-PLAN.md
-Branch: main
+Branch: feature/F-model-thinking-discovery
+PR: https://github.com/coctostan/pi-agent-evals/pull/6 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
