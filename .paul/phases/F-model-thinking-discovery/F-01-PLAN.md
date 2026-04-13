@@ -10,17 +10,19 @@ autonomous: true
 
 <objective>
 ## Goal
-Add `--models` and `--thinking` flags to `/eval-run`, integrate `pi --list-models` for dynamic model discovery, and plumb model/thinking through to the cmux runner so pi starts with the correct `--model` and `--thinking` flags.
+Add `--model` and `--thinking` flags to `/eval-run`, integrate `pi --list-models` for model name validation, and plumb model/thinking through to the cmux runner so pi starts with the correct `--model` and `--thinking` flags.
 
 ## Purpose
 Enables running evals against different models and thinking levels — the core capability for v0.2's comparison matrix. Phase G builds on this to loop over combinations and produce matrix results.
 
 ## Output
-- `/eval-run all --models claude-sonnet-4` runs evals using the specified model
+- `/eval-run all --model claude-sonnet-4` runs evals using the specified model
 - `/eval-run all --thinking high` runs evals with the specified thinking level
 - Both flags parse correctly and pass through to `runSingleEval`
 - Pi is started with `--model` and `--thinking` arguments in the cmux pane
 - No behavioral change when flags are omitted (backward compat)
+- Invalid model names rejected with available model list
+- Invalid thinking levels rejected with valid set
 </objective>
 
 <context>
@@ -60,31 +62,26 @@ src/runner/cmux-runner.ts
 </module_dispatch>
 
 <acceptance_criteria>
-
-## AC-1: Model flag parsing
 ```gherkin
-Given the user runs /eval-run all --models claude-sonnet-4
+Given the user runs /eval-run all --model claude-sonnet-4
 When the command parses arguments
-Then options.model is set to "claude-sonnet-4"
+Then options.modelFlag is set to "claude-sonnet-4"
 And pi is started with --model claude-sonnet-4 in the cmux pane
 ```
-
 ## AC-2: Thinking flag parsing
 ```gherkin
 Given the user runs /eval-run all --thinking high
 When the command parses arguments
-Then options.thinking is set to "high"
+Then options.thinkingFlag is set to "high"
 And pi is started with --thinking high in the cmux pane
 ```
-
 ## AC-3: Combined flags
 ```gherkin
-Given the user runs /eval-run all --models claude-sonnet-4 --thinking high
+Given the user runs /eval-run all --model claude-sonnet-4 --thinking high
 When the command parses arguments
 Then both model and thinking are set correctly
 And pi is started with both --model and --thinking flags
 ```
-
 ## AC-4: Backward compatibility
 ```gherkin
 Given the user runs /eval-run all (no model/thinking flags)
@@ -92,7 +89,6 @@ When the command executes
 Then behavior is identical to v0.1 (no --model or --thinking passed to pi)
 And the current session's model name is used for results metadata
 ```
-
 ## AC-5: Build succeeds
 ```gherkin
 Given all changes are made
@@ -100,6 +96,23 @@ When pnpm run build is executed
 Then TypeScript compiles with zero errors
 ```
 
+## AC-6: Model name validation
+```gherkin
+Given the user runs /eval-run all --model nonexistent-model
+When the command parses arguments
+Then it runs `pi --list-models` to get available models
+And if the model name doesn't match any available model, notifies with error listing available models
+And does not proceed with the eval run
+```
+
+## AC-7: Thinking level validation
+```gherkin
+Given the user runs /eval-run all --thinking banana
+When the command parses arguments
+Then it rejects the invalid thinking level
+And notifies with the valid set: off, minimal, low, medium, high, xhigh
+And does not proceed with the eval run
+```
 </acceptance_criteria>
 
 <tasks>
@@ -147,54 +160,60 @@ Then TypeScript compiles with zero errors
 </task>
 
 <task type="auto">
-  <name>Task 3: Add --models and --thinking flag parsing to /eval-run command</name>
+  <name>Task 3: Add --model and --thinking flag parsing to /eval-run with validation</name>
   <files>index.ts</files>
   <action>
-    Update the `/eval-run` command handler to parse `--models` and `--thinking` flags:
-
+    Update the `/eval-run` command handler to parse `--model` and `--thinking` flags with validation:
     1. **Arg parsing:** After the existing `parts` split, extract:
-       - `--models <value>`: the model identifier string (single model for now — Phase G adds multi-model looping)
+       - `--model <value>`: the model identifier string (single model for now — Phase G adds multi-model looping)
        - `--thinking <value>`: the thinking level string
        - Update `target` extraction to skip flag keys AND their values (not just `--` prefixed tokens)
-
-       Implementation approach:
        ```typescript
        // Extract flag values
        let modelFlag: string | undefined;
        let thinkingFlag: string | undefined;
+       const flagIndices = new Set<number>();
        for (let i = 0; i < parts.length; i++) {
-         if (parts[i] === "--models" && parts[i + 1]) {
+         if (parts[i] === "--model" && parts[i + 1]) {
+           flagIndices.add(i);
+           flagIndices.add(i + 1);
            modelFlag = parts[++i];
          } else if (parts[i] === "--thinking" && parts[i + 1]) {
+           flagIndices.add(i);
+           flagIndices.add(i + 1);
            thinkingFlag = parts[++i];
+         } else if (parts[i] === "--baseline") {
+           flagIndices.add(i);
          }
        }
-       // Target is the first non-flag, non-flag-value token
-       const flagIndices = new Set<number>();
-       // ... (track which indices are flags/values)
        const target = parts.find((p, idx) => !p.startsWith("--") && !flagIndices.has(idx));
        ```
 
-    2. **Validate thinking level:** If `thinkingFlag` is provided, validate against the known set: `["off", "minimal", "low", "medium", "high", "xhigh"]`. If invalid, notify with error and return.
+    2. **Validate model name:** If `modelFlag` is provided:
+       - Run `pi --list-models` via `execSync` and capture output
+       - Parse the output to extract available model names/patterns
+       - Check if `modelFlag` appears in the available models (substring/fuzzy match — pi's model resolution is fuzzy)
+       - If no match found, notify with error: `Unknown model: "X". Available models:\n{list}` and return
+       - Wrap in try/catch — if `pi --list-models` fails, log a warning but proceed (don't block on discovery failure)
 
-    3. **Pass to runner options:** Add `modelFlag` and `thinkingFlag` to the `options` object passed to `runSingleEval`.
+    3. **Validate thinking level:** If `thinkingFlag` is provided, validate against the known set: `["off", "minimal", "low", "medium", "high", "xhigh"]`. If invalid, notify with error listing valid levels and return.
 
-    4. **Update usage text:** Add the new flags to the usage string:
+    4. **Pass to runner options:** Add `modelFlag` and `thinkingFlag` to the `options` object passed to `runSingleEval`.
+
+    5. **Update usage text:** Add the new flags to the usage string:
        ```
-       /eval-run <name|category|all> [--baseline] [--models <model>] [--thinking <level>]
+       /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>]
        ```
 
-    5. **Update results metadata:** If `modelFlag` is provided, use it as `options.model` for results metadata instead of `ctx.model?.name`. This way the results file reflects the actual model used for the eval, not the model running the orchestrating session.
-
-    Do NOT add model discovery/listing in this task — that's informational only and can be a follow-up.
+    6. **Update results metadata:** If `modelFlag` is provided, use it as `options.model` for results metadata instead of `ctx.model?.name`. This way the results file reflects the actual model used for the eval, not the model running the orchestrating session.
     Do NOT add multi-model looping — Phase G handles the matrix execution.
   </action>
   <verify>
     pnpm run build — zero errors.
-    grep 'modelFlag\|thinkingFlag\|--models\|--thinking' dist/index.js — confirm all flag handling present.
+    grep 'modelFlag\|thinkingFlag\|--model\|--thinking\|list-models' dist/index.js — confirm all flag handling and validation present.
     grep 'eval-run' dist/index.js — confirm updated usage text.
   </verify>
-  <done>AC-1, AC-2, AC-3 satisfied: flags parse and pass through to runner. AC-4 satisfied: omitted flags = v0.1 behavior. AC-5 satisfied: build clean.</done>
+  <done>AC-1 through AC-7 satisfied: flags parse, validate, and pass through to runner. Backward compat preserved.</done>
 </task>
 
 </tasks>
@@ -211,7 +230,7 @@ Then TypeScript compiles with zero errors
 
 ## SCOPE LIMITS
 - Single model per run only (no multi-model looping — Phase G)
-- No model discovery/listing command (informational, can follow)
+- No standalone model discovery/listing command (validation uses pi --list-models internally)
 - No results format changes (Phase G)
 - No summary table (Phase G)
 - No --project-dir flag (Phase H)
@@ -223,7 +242,9 @@ Before declaring plan complete:
 - [ ] `pnpm run build` succeeds with zero errors
 - [ ] `RunnerOptions` has `modelFlag` and `thinkingFlag` optional fields
 - [ ] `runSingleEval` constructs pi command with `--model` and `--thinking` when provided
-- [ ] `/eval-run` parses `--models` and `--thinking` flags correctly
+- [ ] `/eval-run` parses `--model` and `--thinking` flags correctly
+- [ ] Invalid model name is rejected with available models list
+- [ ] Invalid thinking level is rejected with valid set
 - [ ] `/eval-run all` with no flags behaves identically to v0.1
 - [ ] Usage text updated to show new flags
 - [ ] No changes to protected files (types.ts, tracer.ts, assertions.ts, loader.ts, evals/)
