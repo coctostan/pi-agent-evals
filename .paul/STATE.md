@@ -5,25 +5,24 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase C complete — ready for Phase D planning
+**Current focus:** Phase D — CMUX Runner plan created, ready for APPLY
 
 ## Current Position
-
 Milestone: v0.1 Initial Release
-Phase: D of 5 (CMUX Runner)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-13 — Phase C complete, transitioned to Phase D
+Phase: D of 5 (CMUX Runner) — Planning
+Plan: D-01 created, awaiting approval
+Status: PLAN created, ready for APPLY
+Last activity: 2026-04-13 — Created .paul/phases/D-cmux-runner/D-01-PLAN.md
 Progress:
 - Milestone: [▓▓▓▓▓▓░░░░] 60%
-- Phase C: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase D: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
+  ✓        ○        ○     [Plan created, awaiting approval]
 ```
 
 ## Accumulated Context
@@ -46,9 +45,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase C complete, ready to plan Phase D
-Next action: /paul:plan for Phase D (CMUX Runner)
-Resume file: .paul/ROADMAP.md
+Stopped at: Plan D-01 created
+Next action: Review and approve plan, then run /paul:apply .paul/phases/D-cmux-runner/D-01-PLAN.md
+Resume file: .paul/phases/D-cmux-runner/D-01-PLAN.md
 Branch: main
 Last commit: 4e0a6dc (squash merge of PR #3)
 PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: MERGED)
