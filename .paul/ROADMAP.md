@@ -4,17 +4,28 @@
 A pi extension + runner that measures specific agent behaviors — tool routing, discipline, preconditions — not end-to-end task completion.
 
 ## Current Milestone
-No active milestone.
-Run `/paul:discuss` or `/paul:milestone` to define the next milestone.
+**v0.2 Model & Thinking Matrix** (v0.2.0)
+Status: 🚧 In Progress
+Phases: 0 of 3 complete
 
-## Next Milestone
-Run `/paul:discuss` or `/paul:milestone` to define.
+## Phases
 
-Planned features from PROJECT.md:
-- Model matrix (`--models` flag)
-- Thinking-level matrix (`--thinking` flag)
-- Historical comparison (`/eval-compare`)
-- CI integration (GitHub Action)
+| Phase | Name | Plans | Status | Completed |
+|-------|------|-------|--------|-----------|
+| F | Model & Thinking Discovery + Flags | TBD | Not started | - |
+| G | Matrix Execution + Results Format | TBD | Not started | - |
+| H | Project Directory Support | TBD | Not started | - |
+
+## Phase Details
+
+### Phase F: Model & Thinking Discovery + Flags
+**Focus:** `--models` and `--thinking` flag parsing for `/eval-run`, `pi --list-models` integration for dynamic model enumeration, available thinking level enumeration, runner plumbing to pass model/thinking to pi sessions.
+
+### Phase G: Matrix Execution + Results Format
+**Focus:** Loop over selected model/thinking combinations, new results schema with per-model/thinking sections, summary table output after runs, `--baseline` behavior with matrix combinations.
+
+### Phase H: Project Directory Support
+**Focus:** `--project-dir` flag, launch pi with `-e <path>` in foreign project directories, validate extension loads correctly, end-to-end validation.
 
 ## Completed Milestones
 
@@ -34,4 +45,4 @@ Archive: `.paul/milestones/v0.1.0-ROADMAP.md`
 </details>
 
 ---
-*Roadmap updated: 2026-04-13 — v0.1 milestone complete*
+*Roadmap updated: 2026-04-13 — v0.2 milestone created*

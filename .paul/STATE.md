@@ -5,23 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** v0.1 milestone complete — ready for next milestone
+**Current focus:** v0.2 — Model & thinking matrix, project directory support
 
 ## Current Position
-Milestone: Awaiting next milestone
-Phase: None active
-Plan: None
-Status: Milestone v0.1 Initial Release complete — ready for next
-Last activity: 2026-04-13 — Milestone completed
+Milestone: v0.2 Model & Thinking Matrix
+Phase: F of 3 (Model & Thinking Discovery + Flags)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-04-13 — Milestone created
 Progress:
-- v0.1 Initial Release: [▓▓▓▓▓▓▓▓▓▓] 100% ✓
+- Milestone: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ○        ○        ○     [Milestone complete - ready for next]
+  ○        ○        ○     [Ready for first PLAN]
 ```
 
 ## Accumulated Context
@@ -50,12 +50,10 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Milestone v0.1 Initial Release complete
-Next action: /paul:discuss or /paul:milestone to define next milestone
-Resume file: .paul/MILESTONES.md
+Stopped at: Milestone created, ready to plan
+Next action: /paul:plan for Phase F
+Resume file: .paul/ROADMAP.md
 Branch: main
-Last commit: 107d3eb (milestone v0.1 complete)
-PR: https://github.com/coctostan/pi-agent-evals/pull/5 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*
