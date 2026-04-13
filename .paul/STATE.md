@@ -50,12 +50,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase E complete, v0.1 milestone complete
-Next action: Merge PR #5, then milestone completion
-Resume file: .paul/phases/05-baseline-run-report/05-01-SUMMARY.md
-Branch: feature/05-baseline-run-report
-Last commit: b694ef0
-PR: https://github.com/coctostan/pi-agent-evals/pull/5 (state: OPEN)
+Stopped at: v0.1 milestone complete, merged to main
+Next action: v0.1 milestone complete — plan v0.2 or celebrate 🎉
+Resume file: .paul/ROADMAP.md
+Branch: main
+Last commit: caf5de6 (squash merge of PR #5)
+PR: https://github.com/coctostan/pi-agent-evals/pull/5 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*

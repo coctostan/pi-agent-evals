@@ -5,8 +5,8 @@ A pi extension + runner that measures specific agent behaviors — tool routing,
 
 ## Current Milestone
 **v0.1 Initial Release** (v0.1.0)
-Status: In progress
-Phases: 4 of 5 complete
+Status: ✅ Complete
+Phases: 5 of 5 complete
 
 ## Phases
 
@@ -16,7 +16,7 @@ Phases: 4 of 5 complete
 | B | Assertions + /eval-check | B-01 | Complete | 2026-04-13 |
 | C | Eval Definitions (4 initial) | C-01 | Complete | 2026-04-13 |
 | D | CMUX Runner | D-01 | Complete | 2026-04-13 |
-| E | Baseline Run + Report | E-01 | Planning | - |
+| E | Baseline Run + Report | E-01 | Complete | 2026-04-13 |
 
 ## Phase Details
 ### Phase E: Baseline Run + Report
