@@ -1,0 +1,31 @@
+{
+  "name": "pi-agent-evals",
+  "version": "0.1.0",
+  "description": "Pi extension + runner that measures agent tool routing and behavioral discipline",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "pi": {
+    "extensions": ["dist/index.js"]
+  },
+  "bin": {
+    "pi-eval": "./dist/src/runner/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@sinclair/typebox": "*"
+  },
+  "dependencies": {
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "@types/node": "^22.0.0"
+  },
+  "license": "MIT"
+}
