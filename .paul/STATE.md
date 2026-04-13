@@ -53,11 +53,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase F UNIFY complete
-Next action: Merge PR #6, then /paul:plan for Phase G
-Resume file: .paul/phases/F-model-thinking-discovery/F-01-SUMMARY.md
-Branch: feature/F-model-thinking-discovery
-PR: https://github.com/coctostan/pi-agent-evals/pull/6 (state: OPEN)
+Stopped at: Phase F complete, merged to main
+Next action: /paul:plan for Phase G
+Resume file: .paul/ROADMAP.md
+Branch: main
+Last commit: 1929018 (squash merge of PR #6)
+PR: https://github.com/coctostan/pi-agent-evals/pull/6 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*
