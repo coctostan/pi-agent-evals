@@ -10,20 +10,20 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 ## Current Position
 
 Milestone: v0.1 Initial Release
-Phase: B of 5 (Assertions + /eval-check) — Planning
-Plan: B-01 created, awaiting approval
-Status: PLAN created, ready for APPLY
-Last activity: 2026-04-13 — Created .paul/phases/B-assertions-eval-check/B-01-PLAN.md
+Phase: B of 5 (Assertions + /eval-check) — APPLY complete
+Plan: B-01 — all tasks PASS
+Status: APPLY complete, ready for UNIFY
+Last activity: 2026-04-13 — Phase B APPLY complete
 Progress:
-- Milestone: [▓▓░░░░░░░░] 20%
-- Phase B: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓▓░░░░░░] 40%
+- Phase B: [▓▓▓▓▓▓▓▓░░] 80%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
 ```
 
 ## Accumulated Context
@@ -46,11 +46,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Plan B-01 created
-Next action: Review and approve plan, then run /paul:apply .paul/phases/B-assertions-eval-check/B-01-PLAN.md
+Stopped at: Phase B APPLY complete
+Next action: /paul:unify .paul/phases/B-assertions-eval-check/B-01-PLAN.md
 Resume file: .paul/phases/B-assertions-eval-check/B-01-PLAN.md
-Branch: main
-Last commit: 8dfbc4d (squash merge of PR #1)
+Branch: feature/B-assertions-eval-check
+Last commit: 9d15a89
+PR: https://github.com/coctostan/pi-agent-evals/pull/2 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
