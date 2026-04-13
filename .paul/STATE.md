@@ -5,25 +5,25 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase C — Eval Definitions (4 initial)
+**Current focus:** Phase C complete — ready for Phase D planning
 
 ## Current Position
 
 Milestone: v0.1 Initial Release
 Phase: C of 5 (Eval Definitions — 4 initial)
-Plan: C-01 created, awaiting approval
-Status: PLAN created, ready for APPLY
-Last activity: 2026-04-13 — Created .paul/phases/C-eval-definitions/C-01-PLAN.md
+Plan: C-01 — SUMMARY created
+Status: Loop complete, ready for next PLAN
+Last activity: 2026-04-13 — Phase C UNIFY complete
 Progress:
-- Milestone: [▓▓▓▓░░░░░░] 40%
-- Phase C: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓▓▓▓░░░░] 60%
+- Phase C: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 ## Accumulated Context
@@ -46,12 +46,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Plan C-01 created
-Next action: Review and approve plan, then run /paul:apply
-Resume file: .paul/phases/C-eval-definitions/C-01-PLAN.md
-Branch: main
-Last commit: 5eb0ddf
-PR: https://github.com/coctostan/pi-agent-evals/pull/2 (state: MERGED)
+Stopped at: Phase C UNIFY complete
+Next action: /paul:plan for Phase D (CMUX Runner)
+Resume file: .paul/phases/C-eval-definitions/C-01-SUMMARY.md
+Branch: feature/C-eval-definitions
+Last commit: 6f250fd
+PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
