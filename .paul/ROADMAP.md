@@ -6,13 +6,13 @@ A pi extension + runner that measures specific agent behaviors — tool routing,
 ## Current Milestone
 **v0.2 Model & Thinking Matrix** (v0.2.0)
 Status: 🚧 In Progress
-Phases: 0 of 3 complete
+Phases: 1 of 3 complete
 
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
-| F | Model & Thinking Discovery + Flags | F-01 | Planning | - |
+| F | Model & Thinking Discovery + Flags | F-01 | Complete | 2026-04-13 |
 | G | Matrix Execution + Results Format | TBD | Not started | - |
 | H | Project Directory Support | TBD | Not started | - |
 
