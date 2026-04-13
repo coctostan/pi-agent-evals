@@ -18,13 +18,14 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - Assertion engine evaluates traces against 6 assertion types (Phase B — shipped)
 - `/eval-check` command for manual validation in live sessions (Phase B — shipped)
 - YAML eval loader with field validation (Phase B — shipped)
+- CMUX runner + CLI for automated eval execution (Phase D — shipped)
 
 ## Scope Snapshot
 ### Active
 - ✓ Tracer extension (lifecycle hooks → trace.json) — Phase A
 - ✓ Assertion engine + `/eval-check` command — Phase B
 - ✓ 4 initial eval definitions (YAML) — Phase C
-- CMUX runner for automated execution
+- ✓ CMUX runner + CLI (`npx pi-eval run`) — Phase D
 - Baseline run + results
 
 ### Planned

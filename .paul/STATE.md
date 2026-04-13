@@ -47,12 +47,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase D UNIFY complete
-Next action: Merge gate → Phase transition → /paul:plan for Phase E
-Resume file: .paul/phases/D-cmux-runner/D-01-SUMMARY.md
-Branch: feature/D-cmux-runner
-Last commit: eac7281
-PR: https://github.com/coctostan/pi-agent-evals/pull/4 (state: OPEN)
+Stopped at: Phase D complete, merged to main
+Next action: /paul:plan for Phase E (Baseline Run + Report)
+Resume file: .paul/ROADMAP.md
+Branch: main
+Last commit: 7e924f8 (squash merge of PR #4)
+PR: https://github.com/coctostan/pi-agent-evals/pull/4 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*
