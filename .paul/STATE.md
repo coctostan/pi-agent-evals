@@ -5,24 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase D — CMUX Runner plan created, ready for APPLY
-
+**Current focus:** Phase D — CMUX Runner APPLY complete, ready for UNIFY
 ## Current Position
 Milestone: v0.1 Initial Release
-Phase: D of 5 (CMUX Runner) — Planning
-Plan: D-01 created, awaiting approval
-Status: PLAN created, ready for APPLY
-Last activity: 2026-04-13 — Created .paul/phases/D-cmux-runner/D-01-PLAN.md
+Phase: D of 5 (CMUX Runner) — Apply complete
+Plan: D-01 executed
+Status: APPLY complete, ready for UNIFY
+Last activity: 2026-04-13 — Phase D APPLY complete (3 tasks, 0 failures)
 Progress:
-- Milestone: [▓▓▓▓▓▓░░░░] 60%
-- Phase D: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓▓▓▓▓▓░░] 80%
+- Phase D: [▓▓▓▓▓▓▓▓░░] 80%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ○     [Apply complete, ready for UNIFY]
 ```
 
 ## Accumulated Context
@@ -35,6 +34,9 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Drop argumentsHash — stringified args suffice for assertion matching
 - Clear trace on agent_start for clean per-loop measurement
 - `completed` assertion checks both non-empty trace AND zero isError entries (not just "agent ran")
+- Use cmux panes (not workspaces) for lighter eval lifecycle
+- Run pi from project dir (not temp dir) for automatic extension loading
+- Configurable timing: --startup-delay, --poll-interval for flexible pi readiness detection
 
 ### Deferred Issues
 None yet.
@@ -45,12 +47,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Plan D-01 created
-Next action: Review and approve plan, then run /paul:apply .paul/phases/D-cmux-runner/D-01-PLAN.md
+Stopped at: Phase D APPLY complete
+Next action: /paul:unify .paul/phases/D-cmux-runner/D-01-PLAN.md
 Resume file: .paul/phases/D-cmux-runner/D-01-PLAN.md
-Branch: main
-Last commit: 4e0a6dc (squash merge of PR #3)
-PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: MERGED)
+Branch: feature/D-cmux-runner
+Last commit: 1052441
+PR: https://github.com/coctostan/pi-agent-evals/pull/4 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
