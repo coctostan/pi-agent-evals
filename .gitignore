@@ -1,0 +1,7 @@
+node_modules/
+dist/
+results/
+.pi/
+.paul/codebase/
+*.tgz
+.DS_Store
