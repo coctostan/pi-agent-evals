@@ -14,6 +14,7 @@
  *   /eval-run    → run eval(s) via cmux and report results
  */
 
+import { execSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
@@ -125,24 +126,79 @@ const extension = (pi: ExtensionAPI): void => {
   });
 
   pi.registerCommand("eval-run", {
-    description: "Run eval(s) via cmux: /eval-run <name|category|all> [--baseline]",
+    description: "Run eval(s) via cmux: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>]",
     handler: async (args, ctx) => {
       // 1. Parse args
       const parts = (args as string)?.trim().split(/\s+/).filter(Boolean) ?? [];
-      const target = parts.find((p) => !p.startsWith("--"));
+      // Extract flag values
+      let modelFlag: string | undefined;
+      let thinkingFlag: string | undefined;
+      const flagIndices = new Set<number>();
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i] === "--model" && parts[i + 1]) {
+          flagIndices.add(i);
+          flagIndices.add(i + 1);
+          modelFlag = parts[++i];
+        } else if (parts[i] === "--thinking" && parts[i + 1]) {
+          flagIndices.add(i);
+          flagIndices.add(i + 1);
+          thinkingFlag = parts[++i];
+        } else if (parts[i] === "--baseline") {
+          flagIndices.add(i);
+        }
+      }
+      const target = parts.find((p, idx) => !p.startsWith("--") && !flagIndices.has(idx));
       const baseline = parts.includes("--baseline");
 
       if (!target) {
         ctx.ui.notify(
-          "Usage: /eval-run <name|category|all> [--baseline]\n\n" +
+          "Usage: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>]\n\n" +
             "Examples:\n" +
-            "  /eval-run all              Run all evals\n" +
-            "  /eval-run all --baseline   Run all and save as baseline\n" +
-            "  /eval-run read-over-cat    Run a specific eval\n" +
-            "  /eval-run tool-routing     Run all evals in a category",
+            "  /eval-run all                          Run all evals\n" +
+            "  /eval-run all --baseline               Run all and save as baseline\n" +
+            "  /eval-run all --model claude-sonnet-4   Run all with a specific model\n" +
+            "  /eval-run all --thinking high           Run all with a specific thinking level\n" +
+            "  /eval-run read-over-cat                Run a specific eval\n" +
+            "  /eval-run tool-routing                 Run all evals in a category",
           "warning",
         );
         return;
+      }
+
+      // Validate thinking level
+      const validThinkingLevels = ["off", "minimal", "low", "medium", "high", "xhigh"];
+      if (thinkingFlag && !validThinkingLevels.includes(thinkingFlag)) {
+        ctx.ui.notify(
+          `Invalid thinking level: "${thinkingFlag}"\n\nValid levels: ${validThinkingLevels.join(", ")}`,
+          "error",
+        );
+        return;
+      }
+
+      // Validate model name against pi --list-models
+      if (modelFlag) {
+        try {
+          const listOutput = execSync("pi --list-models", {
+            encoding: "utf-8",
+            stdio: "pipe",
+            timeout: 10_000,
+          });
+          const lowerOutput = listOutput.toLowerCase();
+          const lowerModel = modelFlag.toLowerCase();
+          if (!lowerOutput.includes(lowerModel)) {
+            ctx.ui.notify(
+              `Unknown model: "${modelFlag}"\n\nAvailable models:\n${listOutput.trim()}`,
+              "error",
+            );
+            return;
+          }
+        } catch {
+          // pi --list-models failed — warn but proceed
+          ctx.ui.notify(
+            `Warning: Could not validate model "${modelFlag}" (pi --list-models failed). Proceeding anyway.`,
+            "warning",
+          );
+        }
       }
 
       // 2. Check cmux
@@ -189,7 +245,9 @@ const extension = (pi: ExtensionAPI): void => {
         outputDir,
         evalsDir,
         projectDir: ctx.cwd,
-        model: ctx.model?.name ?? "unknown",
+        model: modelFlag ?? ctx.model?.name ?? "unknown",
+        modelFlag,
+        thinkingFlag,
         piStartupDelay: 5_000,
         pollInterval: 1_000,
       };

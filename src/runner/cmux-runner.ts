@@ -311,7 +311,15 @@ export async function runSingleEval(
     // 4. Start pi in the project dir
     sendToSurface(cmuxBin, surfaceRef, `cd ${options.projectDir}\n`);
     await setTimeout(500); // Brief pause for cd
-    sendToSurface(cmuxBin, surfaceRef, "pi\n");
+    // Build pi command with optional --model and --thinking flags
+    let piCmd = "pi";
+    if (options.modelFlag) {
+      piCmd += ` --model ${options.modelFlag}`;
+    }
+    if (options.thinkingFlag) {
+      piCmd += ` --thinking ${options.thinkingFlag}`;
+    }
+    sendToSurface(cmuxBin, surfaceRef, `${piCmd}\n`);
 
     // 5. Wait for pi to start
     console.log(`  Waiting ${options.piStartupDelay}ms for pi to start...`);

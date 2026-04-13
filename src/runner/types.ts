@@ -71,6 +71,12 @@ export interface RunnerOptions {
   /** Model name for metadata (not used for model switching in v0.1). */
   model?: string;
 
+  /** Model identifier to pass as --model to pi (e.g., "claude-sonnet-4"). Optional — omit to use pi's default. */
+  modelFlag?: string;
+
+  /** Thinking level to pass as --thinking to pi. Valid: off, minimal, low, medium, high, xhigh. Optional — omit to use pi's default. */
+  thinkingFlag?: string;
+
   /** Milliseconds to wait for pi to start before sending the prompt. */
   piStartupDelay: number;
 
