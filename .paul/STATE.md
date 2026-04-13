@@ -5,15 +5,15 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase A — Tracer + Types
+**Current focus:** Phase A complete — ready for Phase B planning
 
 ## Current Position
 
 Milestone: v0.1 Initial Release
-Phase: A of 5 (Tracer + Types) — APPLY complete
-Plan: A-01 executed, all 3 tasks PASS
-Status: APPLY complete, ready for UNIFY
-Last activity: 2026-04-13 — Phase A APPLY complete
+Phase: A of 5 (Tracer + Types) — UNIFY complete
+Plan: A-01 — SUMMARY created
+Status: Loop complete, ready for next PLAN
+Last activity: 2026-04-13 — Phase A UNIFY complete
 Progress:
 - Milestone: [▓▓░░░░░░░░] 20%
 - Phase A: [▓▓▓▓▓▓▓▓▓▓] 100%
@@ -23,7 +23,7 @@ Progress:
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 ## Accumulated Context
@@ -45,12 +45,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase A APPLY complete
-Next action: Run /paul:unify to reconcile Phase A results
-Resume file: .paul/phases/A-tracer-types/A-01-PLAN.md
+Stopped at: Phase A UNIFY complete
+Next action: Merge PR #1 and transition to Phase B, then /paul:plan
+Resume file: .paul/phases/A-tracer-types/A-01-SUMMARY.md
 ### Git State
 Branch: feature/A-tracer-types
-PR: https://github.com/coctostan/pi-agent-evals/pull/1 (state: open)
+PR: https://github.com/coctostan/pi-agent-evals/pull/1 (state: open, pending merge)
 
 ---
 *STATE.md — Updated after every significant action*
