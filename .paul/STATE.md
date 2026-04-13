@@ -5,23 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase D — CMUX Runner APPLY complete, ready for UNIFY
+**Current focus:** Phase D complete — ready for merge gate then Phase E planning
 ## Current Position
 Milestone: v0.1 Initial Release
-Phase: D of 5 (CMUX Runner) — Apply complete
-Plan: D-01 executed
-Status: APPLY complete, ready for UNIFY
-Last activity: 2026-04-13 — Phase D APPLY complete (3 tasks, 0 failures)
+Phase: D of 5 (CMUX Runner) — Complete
+Plan: D-01 complete
+Status: UNIFY complete, loop closed
+Last activity: 2026-04-13 — Phase D UNIFY complete
 Progress:
 - Milestone: [▓▓▓▓▓▓▓▓░░] 80%
-- Phase D: [▓▓▓▓▓▓▓▓░░] 80%
+- Phase D: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [Apply complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 ## Accumulated Context
@@ -47,11 +47,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase D APPLY complete
-Next action: /paul:unify .paul/phases/D-cmux-runner/D-01-PLAN.md
-Resume file: .paul/phases/D-cmux-runner/D-01-PLAN.md
+Stopped at: Phase D UNIFY complete
+Next action: Merge gate → Phase transition → /paul:plan for Phase E
+Resume file: .paul/phases/D-cmux-runner/D-01-SUMMARY.md
 Branch: feature/D-cmux-runner
-Last commit: 1052441
+Last commit: eac7281
 PR: https://github.com/coctostan/pi-agent-evals/pull/4 (state: OPEN)
 
 ---
