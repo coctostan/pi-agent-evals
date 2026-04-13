@@ -5,23 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase E APPLY complete — ready for UNIFY
+**Current focus:** Phase E UNIFY complete — v0.1 milestone feature-complete
 ## Current Position
 Milestone: v0.1 Initial Release
-Phase: E of 5 (Baseline Run + Report) — Applying
-Plan: 05-01 executed
-Status: APPLY complete, ready for UNIFY
-Last activity: 2026-04-13 — Phase E APPLY complete, baseline 8/8
+Phase: E of 5 (Baseline Run + Report) — Complete
+Plan: 05-01 complete
+Status: UNIFY complete, loop closed
+Last activity: 2026-04-13 — Phase E UNIFY complete, baseline 8/8
 Progress:
-- Milestone: [▓▓▓▓▓▓▓▓▓░] 95%
-- Phase E: [▓▓▓▓▓▓▓▓░░] 80%
+- Milestone: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase E: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — v0.1 milestone complete]
 ```
 
 ## Accumulated Context
@@ -50,11 +50,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase E APPLY complete
-Next action: /paul:unify .paul/phases/05-baseline-run-report/05-01-PLAN.md
-Resume file: .paul/phases/05-baseline-run-report/05-01-PLAN.md
+Stopped at: Phase E complete, v0.1 milestone complete
+Next action: Merge PR #5, then milestone completion
+Resume file: .paul/phases/05-baseline-run-report/05-01-SUMMARY.md
 Branch: feature/05-baseline-run-report
-Last commit: be0c706
+Last commit: b694ef0
 PR: https://github.com/coctostan/pi-agent-evals/pull/5 (state: OPEN)
 
 ---
