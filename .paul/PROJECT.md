@@ -10,16 +10,19 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | Attribute | Value |
 |-----------|-------|
 | Version | 0.1.0 |
-| Status | Discovery / Onboarding |
+| Status | Building |
 | Last Updated | 2026-04-13 |
 
 **Current system summary:**
-- New project — repo initialized with .gitignore only
+- Tracer extension captures tool calls via lifecycle hooks (Phase A — shipped)
+- Assertion engine evaluates traces against 6 assertion types (Phase B — shipped)
+- `/eval-check` command for manual validation in live sessions (Phase B — shipped)
+- YAML eval loader with field validation (Phase B — shipped)
 
 ## Scope Snapshot
 ### Active
-- Tracer extension (lifecycle hooks → trace.json)
-- Assertion engine + `/eval-check` command
+- ✓ Tracer extension (lifecycle hooks → trace.json) — Phase A
+- ✓ Assertion engine + `/eval-check` command — Phase B
 - 4 initial eval definitions (YAML)
 - CMUX runner for automated execution
 - Baseline run + results
@@ -56,6 +59,7 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | Runner outside, tracer inside architecture | Clean session isolation; runner can loop over models/configs | 2026-04-13 | Active |
 | YAML eval definitions | Human-readable, easy to add new evals | 2026-04-13 | Active |
 | Layered artifact model (`PROJECT.md` + `PRD.md`) adopted at init | Keep hot-path context concise while preserving deeper product definition | 2026-04-13 | Active |
+| `completed` assertion = non-empty trace + zero errors | User-confirmed: both conditions required, not just "agent ran" | 2026-04-13 | Active |
 
 ## Links
 - `PRD.md` — deeper product-definition context
