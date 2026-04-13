@@ -5,25 +5,25 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Phase B — Assertions + /eval-check
+**Current focus:** Phase B complete — ready for Phase C planning
 
 ## Current Position
 
 Milestone: v0.1 Initial Release
-Phase: B of 5 (Assertions + /eval-check) — APPLY complete
-Plan: B-01 — all tasks PASS
-Status: APPLY complete, ready for UNIFY
-Last activity: 2026-04-13 — Phase B APPLY complete
+Phase: B of 5 (Assertions + /eval-check) — UNIFY complete
+Plan: B-01 — SUMMARY created
+Status: Loop complete, ready for next PLAN
+Last activity: 2026-04-13 — Phase B UNIFY complete
 Progress:
 - Milestone: [▓▓▓▓░░░░░░] 40%
-- Phase B: [▓▓▓▓▓▓▓▓░░] 80%
+- Phase B: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 ## Accumulated Context
@@ -46,11 +46,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase B APPLY complete
-Next action: /paul:unify .paul/phases/B-assertions-eval-check/B-01-PLAN.md
-Resume file: .paul/phases/B-assertions-eval-check/B-01-PLAN.md
+Stopped at: Phase B UNIFY complete
+Next action: /paul:plan for Phase C (Eval Definitions — 4 initial)
+Resume file: .paul/phases/B-assertions-eval-check/B-01-SUMMARY.md
 Branch: feature/B-assertions-eval-check
-Last commit: 9d15a89
+Last commit: df02930
 PR: https://github.com/coctostan/pi-agent-evals/pull/2 (state: OPEN)
 
 ---
