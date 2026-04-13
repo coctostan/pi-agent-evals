@@ -12,7 +12,7 @@ Phases: 0 of 3 complete
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
-| F | Model & Thinking Discovery + Flags | TBD | Not started | - |
+| F | Model & Thinking Discovery + Flags | F-01 | Planning | - |
 | G | Matrix Execution + Results Format | TBD | Not started | - |
 | H | Project Directory Support | TBD | Not started | - |
 
