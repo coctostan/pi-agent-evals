@@ -13,7 +13,7 @@ Phases: 1 of 5 complete
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
 | A | Tracer + Types | A-01 | Complete | 2026-04-13 |
-| B | Assertions + /eval-check | TBD | Not started | - |
+| B | Assertions + /eval-check | B-01 | Planning | - |
 | C | Eval Definitions (4 initial) | TBD | Not started | - |
 | D | CMUX Runner | TBD | Not started | - |
 | E | Baseline Run + Report | TBD | Not started | - |
