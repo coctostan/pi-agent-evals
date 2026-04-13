@@ -10,10 +10,10 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 ## Current Position
 
 Milestone: v0.1 Initial Release
-Phase: C of 5 (Eval Definitions — 4 initial)
-Plan: C-01 — SUMMARY created
-Status: Loop complete, ready for next PLAN
-Last activity: 2026-04-13 — Phase C UNIFY complete
+Phase: D of 5 (CMUX Runner)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-04-13 — Phase C complete, transitioned to Phase D
 Progress:
 - Milestone: [▓▓▓▓▓▓░░░░] 60%
 - Phase C: [▓▓▓▓▓▓▓▓▓▓] 100%
@@ -46,12 +46,12 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: Phase C UNIFY complete
+Stopped at: Phase C complete, ready to plan Phase D
 Next action: /paul:plan for Phase D (CMUX Runner)
-Resume file: .paul/phases/C-eval-definitions/C-01-SUMMARY.md
-Branch: feature/C-eval-definitions
-Last commit: 6f250fd
-PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: OPEN)
+Resume file: .paul/ROADMAP.md
+Branch: main
+Last commit: 4e0a6dc (squash merge of PR #3)
+PR: https://github.com/coctostan/pi-agent-evals/pull/3 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*

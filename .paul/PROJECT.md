@@ -23,7 +23,7 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 ### Active
 - ✓ Tracer extension (lifecycle hooks → trace.json) — Phase A
 - ✓ Assertion engine + `/eval-check` command — Phase B
-- 4 initial eval definitions (YAML)
+- ✓ 4 initial eval definitions (YAML) — Phase C
 - CMUX runner for automated execution
 - Baseline run + results
 
