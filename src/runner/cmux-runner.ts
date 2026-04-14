@@ -311,8 +311,12 @@ export async function runSingleEval(
     // 4. Start pi in the project dir
     sendToSurface(cmuxBin, surfaceRef, `cd ${options.projectDir}\n`);
     await setTimeout(500); // Brief pause for cd
-    // Build pi command with optional --model and --thinking flags
+    // Build pi command with optional -e, --model, and --thinking flags
     let piCmd = "pi";
+    // When target project differs from extension repo, explicitly load extension
+    if (options.extensionDir && options.extensionDir !== options.projectDir) {
+      piCmd += ` -e ${options.extensionDir}`;
+    }
     if (options.modelFlag) {
       piCmd += ` --model ${options.modelFlag}`;
     }

@@ -15,7 +15,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { checkAssertions } from "./src/assertions.js";
@@ -126,13 +126,14 @@ const extension = (pi: ExtensionAPI): void => {
   });
 
   pi.registerCommand("eval-run", {
-    description: "Run eval(s) via cmux: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>]",
+    description: "Run eval(s) via cmux: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>] [--project-dir <path>]",
     handler: async (args, ctx) => {
       // 1. Parse args
       const parts = (args as string)?.trim().split(/\s+/).filter(Boolean) ?? [];
       // Extract flag values
       let modelFlag: string | undefined;
       let thinkingFlag: string | undefined;
+      let projectDirFlag: string | undefined;
       const flagIndices = new Set<number>();
       for (let i = 0; i < parts.length; i++) {
         if (parts[i] === "--model" && parts[i + 1]) {
@@ -143,6 +144,10 @@ const extension = (pi: ExtensionAPI): void => {
           flagIndices.add(i);
           flagIndices.add(i + 1);
           thinkingFlag = parts[++i];
+        } else if (parts[i] === "--project-dir" && parts[i + 1]) {
+          flagIndices.add(i);
+          flagIndices.add(i + 1);
+          projectDirFlag = parts[++i];
         } else if (parts[i] === "--baseline") {
           flagIndices.add(i);
         }
@@ -152,14 +157,15 @@ const extension = (pi: ExtensionAPI): void => {
 
       if (!target) {
         ctx.ui.notify(
-          "Usage: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>]\n\n" +
+          "Usage: /eval-run <name|category|all> [--baseline] [--model <model>] [--thinking <level>] [--project-dir <path>]\n\n" +
             "Examples:\n" +
-            "  /eval-run all                          Run all evals\n" +
-            "  /eval-run all --baseline               Run all and save as baseline\n" +
-            "  /eval-run all --model claude-sonnet-4   Run all with a specific model\n" +
-            "  /eval-run all --thinking high           Run all with a specific thinking level\n" +
-            "  /eval-run read-over-cat                Run a specific eval\n" +
-            "  /eval-run tool-routing                 Run all evals in a category",
+            "  /eval-run all                                   Run all evals\n" +
+            "  /eval-run all --baseline                        Run all and save as baseline\n" +
+            "  /eval-run all --model claude-sonnet-4            Run all with a specific model\n" +
+            "  /eval-run all --thinking high                    Run all with a specific thinking level\n" +
+            "  /eval-run all --project-dir ../other-project     Run all against a foreign project\n" +
+            "  /eval-run read-over-cat                         Run a specific eval\n" +
+            "  /eval-run tool-routing                          Run all evals in a category",
           "warning",
         );
         return;
@@ -198,6 +204,19 @@ const extension = (pi: ExtensionAPI): void => {
             `Warning: Could not validate model "${modelFlag}" (pi --list-models failed). Proceeding anyway.`,
             "warning",
           );
+        }
+      }
+
+      // Validate and resolve --project-dir
+      let targetProjectDir = ctx.cwd;
+      if (projectDirFlag) {
+        targetProjectDir = resolve(ctx.cwd, projectDirFlag);
+        if (!existsSync(targetProjectDir) || !statSync(targetProjectDir).isDirectory()) {
+          ctx.ui.notify(
+            `Invalid project directory: "${targetProjectDir}"\n\nThe path must exist and be a directory.`,
+            "error",
+          );
+          return;
         }
       }
 
@@ -244,7 +263,8 @@ const extension = (pi: ExtensionAPI): void => {
         timeout: 120_000,
         outputDir,
         evalsDir,
-        projectDir: ctx.cwd,
+        projectDir: targetProjectDir,
+        extensionDir: ctx.cwd,
         model: modelFlag ?? ctx.model?.name ?? "unknown",
         modelFlag,
         thinkingFlag,

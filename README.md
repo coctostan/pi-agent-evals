@@ -32,15 +32,30 @@ pnpm install && pnpm build
 |---------|-------------|
 | `/eval-trace` | Dump current session trace for debugging |
 | `/eval-check <name>` | Run assertions for an eval against the current trace |
-| `/eval-run <target> [--baseline]` | Run evals via cmux and report results |
+| `/eval-run <target> [--baseline] [--model <model>] [--thinking <level>] [--project-dir <path>]` | Run evals via cmux and report results |
 
 ### /eval-run examples
 
 ```
-/eval-run all                Run all evals
-/eval-run all --baseline     Run all and save as baseline.json
-/eval-run read-over-cat      Run a specific eval
-/eval-run tool-routing       Run all evals in a category
+/eval-run all                                   Run all evals
+/eval-run all --baseline                        Run all and save as baseline.json
+/eval-run read-over-cat                         Run a specific eval
+/eval-run tool-routing                          Run all evals in a category
+/eval-run all --project-dir ../other-project    Run all evals against a foreign project
+```
+
+### Foreign-project execution
+
+By default, `/eval-run` launches pi in the extension repo (this directory). With `--project-dir <path>`, pi starts inside the specified project directory instead, while eval definitions (`evals/`) and results (`results/`) remain anchored to the extension repo.
+
+The runner automatically loads the tracer extension via `pi -e <extension-repo>` so that `.pi/eval-trace.json` is written under the foreign project directory.
+
+```
+# Run evals against a separate project
+/eval-run all --project-dir ~/projects/my-app
+
+# Combine with model and thinking flags
+/eval-run all --project-dir ../my-app --model claude-sonnet-4 --thinking high
 ```
 
 ## Eval Definitions

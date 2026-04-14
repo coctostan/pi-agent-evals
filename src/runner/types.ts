@@ -68,8 +68,10 @@ export interface RunnerOptions {
   /** Directory containing eval YAML files. */
   evalsDir: string;
 
-  /** Project root directory (where package.json declares the extension). */
+  /** Target working directory where pi runs and `.pi/eval-trace.json` is written. */
   projectDir: string;
+  /** Extension repo directory — passed to pi via `-e` when it differs from projectDir. */
+  extensionDir: string;
 
   /** Model name for metadata (not used for model switching in v0.1). */
   model?: string;

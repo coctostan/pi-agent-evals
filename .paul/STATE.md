@@ -5,24 +5,23 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** v0.2 — Project directory support, milestone closeout
+**Current focus:** Milestone v0.2 complete. Next milestone TBD.
 
 ## Current Position
-Milestone: v0.2 Model & Thinking Matrix
-Phase: H of 3 (Project Directory Support)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-14 — Phase G complete, transitioned to Phase H
+Milestone: v0.2 Model & Thinking Matrix — COMPLETE
+Phase: H of 3 (Project Directory Support) — UNIFIED
+Plan: H-01 complete
+Status: Milestone v0.2 closed. All 3 phases (F, G, H) delivered.
+Last activity: 2026-04-14 — Phase H unified, milestone v0.2 closed
 Progress:
-- Milestone: [▓▓▓▓▓▓░░░░] 66%
-- Phase H: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase H: [▓▓▓▓▓▓▓▓▓▓] 100%
 
 ## Loop Position
-
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ○        ○        ○     [Ready to start next loop — Phase H PLAN]
+  ✓        ✓        ✓     [Phase H complete, milestone v0.2 closed]
 ```
 
 ## Accumulated Context
@@ -45,15 +44,17 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Model validation via pi --list-models with graceful fallback (Phase F)
 - `RunSummary` stores `thinking` metadata for cross-run comparison (Phase G)
 - `/eval-compare` uses padded plain-text output and treats missing evals as display gaps, not errors (Phase G)
+- `extensionDir` separates extension repo path from target project directory in RunnerOptions (Phase H)
+- `--project-dir` resolves relative to ctx.cwd with existence+directory validation before cmux starts (Phase H)
+- `-e` flag only added to pi command when extensionDir !== projectDir — backward-compatible (Phase H)
 
 ### Fixes
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: ef0123a
-- Branch: main
-- Feature branch merged: feature/G-matrix-execution-results
-- PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: MERGED)
+- Last phase-transition commit: 5913899
+- Branch: feature/H-project-directory-support
+- PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: OPEN)
 
 ### Deferred Issues
 None yet.
@@ -62,13 +63,16 @@ None yet.
 None yet.
 
 ## Session Continuity
-
 Last session: 2026-04-14
-Stopped at: Phase G complete, ready to plan Phase H
-Next action: /paul:plan for Phase H
-Resume file: .paul/ROADMAP.md
-Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: MERGED)
+Stopped at: Milestone v0.2 complete — UNIFY closed Phase H and the milestone
+Next action: Merge PR #8 into main
+Resume context:
+- All v0.2 phases (F, G, H) delivered and unified
+- Summary: `.paul/phases/H-project-directory-support/H-01-SUMMARY.md`
+- Milestone archive: `.paul/milestones/v0.2.0-ROADMAP.md`
+- PR #8 open, awaiting merge
+Branch: feature/H-project-directory-support
+PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
