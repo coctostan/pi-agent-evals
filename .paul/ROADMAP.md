@@ -4,25 +4,18 @@
 A pi extension + runner that measures specific agent behaviors — tool routing, discipline, preconditions — not end-to-end task completion.
 
 ## Current Milestone
-v0.3 Testing, Eval Expansion & CI
-
-| Phase | Name | Plans | Status |
-|-------|------|-------|---------|
-| I | Test Foundation & Validation Hardening | I-01 | ✅ 2026-04-14 |
-| J | Eval Expansion (4 → 11) & New Assertion Types | J-01 | ✅ 2026-04-14 |
-| K | Documentation Refresh & New Baseline | TBD | Pending |
-
-### Phase I: Test Foundation & Validation Hardening
-**Focus:** Add vitest test framework, unit tests for assertion engine (all 6 types), unit tests for eval loader (valid/invalid YAML, deep assertion shape validation), enforce `pass_threshold` in runner, wire per-eval `timeout` from YAML to runner, harden YAML validation.
-
-### Phase J: Eval Expansion (4 → 11) & New Assertion Types
-**Focus:** 3 new assertion types (`tool_used_any`, `tool_no_errors`, `tool_preference`), 7 new eval definitions (search-over-find, grep-over-bash-grep, parallel-tool-calls, edit-over-write, edit-accuracy, graph-for-structure, truncation-follow-up), update existing 4 evals with additional prompts, new `context` category. Source: `thinkingSpace/plans/eval-definitions-v1.1.md`.
-
-### Phase K: Documentation Refresh & New Baseline
-**Focus:** README refresh (document all 11 evals, 9 assertion types, `/eval-compare` command, remove stale roadmap entries), new baseline run with 11 evals (26 prompts) to validate Phase J expansion end-to-end.
+None — v0.3 completed.
 
 ## Completed Milestones
+<summary>v0.3 Testing, Eval Expansion & Docs — 2026-04-14 (3 phases)</summary>
 
+| Phase | Name | Plans | Completed |
+|-------|------|-------|-----------|
+| I | Test Foundation & Validation Hardening | I-01 | 2026-04-14 |
+| J | Eval Expansion (4 → 11) & New Assertion Types | J-01 | 2026-04-14 |
+| K | Documentation Refresh & New Baseline | K-01 | 2026-04-14 |
+
+</details>
 <details>
 <summary>v0.2 Model & Thinking Matrix — 2026-04-14 (3 phases)</summary>
 
@@ -47,4 +40,4 @@ Archive: `.paul/milestones/v0.1.0-ROADMAP.md`
 </details>
 
 ---
-*Roadmap updated: 2026-04-14 — Phase J unified*
+*Roadmap updated: 2026-04-14 — v0.3 milestone complete*

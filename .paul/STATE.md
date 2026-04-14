@@ -5,21 +5,21 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
+**Current focus:** Milestone v0.3 complete. No active milestone.
 ## Current Position
-Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: K of 3 (Documentation Refresh & New Baseline) — APPLIED
-Plan: K-01 complete (Task 1 applied; Task 2 deferred)
-Status: Phase K applied. PR #11 open, pending UNIFY.
-Last activity: 2026-04-14 — Phase K applied
+Milestone: v0.3 Testing, Eval Expansion & Docs — COMPLETE
+Phase: K of 3 (Documentation Refresh & New Baseline) — UNIFIED
+Plan: K-01 complete
+Status: Milestone v0.3 delivered. All 3 phases (I, J, K) unified.
+Last activity: 2026-04-14 — Phase K unified, PR #11 merged, v0.3 complete
 Progress:
-- Milestone: [▓▓▓▓▓▓▓▓░░] 90%
-- Phase K: [▓▓▓▓▓▓▓▓▓░] 90%
+- Milestone: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase K: [▓▓▓▓▓▓▓▓▓▓] 100%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        [Phase K applied, UNIFY pending]
+  ✓        ✓        ✓     [v0.3 COMPLETE — no active phase]
 ```
 
 ## Accumulated Context
@@ -52,15 +52,17 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - `tool_no_errors` vacuous pass when tool absent (no calls = no errors) (Phase J)
 - `tool_preference` vacuous pass when neither group used; soft signal, no special display (Phase J)
 - graph-for-structure.yaml uses `cwd` field as informational metadata for runner (Phase J)
+- CI dropped from Phase K scope — low value for single-developer project (Phase K)
+- Baseline run is manual (requires live cmux + pi session) (Phase K)
 
 ### Fixes
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: 5a03e99
-- Branch: feature/K-docs-baseline-refresh
-- Feature branch: feature/K-docs-baseline-refresh
-- PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
+- Last phase-transition commit: 6dd9d4b
+- Branch: main
+- Feature branch merged: feature/K-docs-baseline-refresh
+- PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: MERGED)
 
 ### Deferred Issues
 None yet.
@@ -70,12 +72,10 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase K applied — UNIFY pending
-Next action: /paul:unify for Phase K
+Stopped at: Milestone v0.3 complete — no active phase
+Next action: None — milestone complete. Next milestone TBD.
 Resume context:
-- Phase K delivered: README refreshed (11 evals, 9 types, /eval-compare, roadmap)
-- Summary: `.paul/phases/K-ci-integration-documentation-refresh/K-01-SUMMARY.md`
-- Baseline run deferred: `/eval-run all --baseline` in cmux after merge
-- This is the FINAL phase of Milestone v0.3
-Branch: feature/K-docs-baseline-refresh
-PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
+- v0.3 delivered: 67 tests, 9 assertion types, 11 evals, docs refreshed, baseline 20/26
+- Baseline: Claude Opus 4.6, 20/26 passed (graph-for-structure 0/3, truncation-follow-up 0/1, no-redundant-cd 1/3)
+- All PRs merged: #9 (Phase I), #10 (Phase J), #11 (Phase K)
+Branch: main

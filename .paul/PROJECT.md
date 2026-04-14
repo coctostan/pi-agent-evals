@@ -10,8 +10,8 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | Attribute | Value |
 |-----------|-------|
 | Version | 0.3.0 |
-| Status | v0.3 In Progress — Phase J unified, Phase K pending |
-| Last Updated | 2026-04-14 (after Phase J unified) |
+| Status | v0.3 Complete |
+| Last Updated | 2026-04-14 (v0.3 complete) |
 **Current system summary:**
 - Tracer extension captures tool calls via lifecycle hooks (Phase A — shipped)
 - Assertion engine evaluates traces against 9 assertion types (Phase B+J — shipped)
@@ -37,9 +37,9 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - [x] Validation hardening: enforce pass_threshold, wire YAML timeout, deep assertion validation — Phase I
 - [x] 3 new assertion types: `tool_used_any`, `tool_no_errors`, `tool_preference` — Phase J
 - [x] 11 eval definitions (4 → 11) with expanded prompts, new `context` category — Phase J
-### Planned (v0.3)
-- [ ] CI integration (GitHub Action gating merge on regression)
-- [ ] Documentation refresh & new baseline
+### Planned (v0.3) — COMPLETE
+- [x] CI integration — dropped (low value for single-dev project)
+- [x] Documentation refresh & new baseline — Phase K
 
 ### Out of Scope
 - End-to-end task completion benchmarks — this measures specific behaviors only
@@ -82,4 +82,4 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - `~/pi/workspace/thinkingSpace/plans/pi-agent-evals-build-plan.md` — original build plan
 
 ---
-*Last updated: 2026-04-14 after v0.3 milestone scoping*
+*Last updated: 2026-04-14 — v0.3 milestone complete*
