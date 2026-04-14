@@ -52,9 +52,10 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: 5913899
-- Branch: feature/H-project-directory-support
-- PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: OPEN)
+- Last phase-transition commit: 077760a
+- Branch: main
+- Feature branch merged: feature/H-project-directory-support
+- PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: MERGED)
 
 ### Deferred Issues
 None yet.
@@ -65,14 +66,13 @@ None yet.
 ## Session Continuity
 Last session: 2026-04-14
 Stopped at: Milestone v0.2 complete — UNIFY closed Phase H and the milestone
-Next action: Merge PR #8 into main
+Next action: Start planning next milestone
 Resume context:
-- All v0.2 phases (F, G, H) delivered and unified
+- All v0.2 phases (F, G, H) delivered, unified, and merged
 - Summary: `.paul/phases/H-project-directory-support/H-01-SUMMARY.md`
 - Milestone archive: `.paul/milestones/v0.2.0-ROADMAP.md`
-- PR #8 open, awaiting merge
-Branch: feature/H-project-directory-support
-PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: OPEN)
+Branch: main
+PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*
