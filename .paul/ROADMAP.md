@@ -8,7 +8,7 @@ v0.3 Testing, Eval Expansion & CI
 
 | Phase | Name | Plans | Status |
 |-------|------|-------|---------|
-| I | Test Foundation & Validation Hardening | TBD | Pending |
+| I | Test Foundation & Validation Hardening | I-01 | ✅ 2026-04-14 |
 | J | Eval Expansion (4 → 11) & New Assertion Types | TBD | Pending |
 | K | CI Integration & Documentation Refresh | TBD | Pending |
 
