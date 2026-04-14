@@ -10,7 +10,7 @@ v0.3 Testing, Eval Expansion & CI
 |-------|------|-------|---------|
 | I | Test Foundation & Validation Hardening | I-01 | ✅ 2026-04-14 |
 | J | Eval Expansion (4 → 11) & New Assertion Types | J-01 | ✅ 2026-04-14 |
-| K | CI Integration & Documentation Refresh | TBD | Pending |
+| K | Documentation Refresh & New Baseline | TBD | Pending |
 
 ### Phase I: Test Foundation & Validation Hardening
 **Focus:** Add vitest test framework, unit tests for assertion engine (all 6 types), unit tests for eval loader (valid/invalid YAML, deep assertion shape validation), enforce `pass_threshold` in runner, wire per-eval `timeout` from YAML to runner, harden YAML validation.
@@ -18,8 +18,8 @@ v0.3 Testing, Eval Expansion & CI
 ### Phase J: Eval Expansion (4 → 11) & New Assertion Types
 **Focus:** 3 new assertion types (`tool_used_any`, `tool_no_errors`, `tool_preference`), 7 new eval definitions (search-over-find, grep-over-bash-grep, parallel-tool-calls, edit-over-write, edit-accuracy, graph-for-structure, truncation-follow-up), update existing 4 evals with additional prompts, new `context` category. Source: `thinkingSpace/plans/eval-definitions-v1.1.md`.
 
-### Phase K: CI Integration & Documentation Refresh
-**Focus:** GitHub Action workflow (run evals on PR, gate on regression), README refresh (document `/eval-compare`, remove stale roadmap entries, add eval expansion docs), update baseline with 11 evals.
+### Phase K: Documentation Refresh & New Baseline
+**Focus:** README refresh (document all 11 evals, 9 assertion types, `/eval-compare` command, remove stale roadmap entries), new baseline run with 11 evals (26 prompts) to validate Phase J expansion end-to-end.
 
 ## Completed Milestones
 

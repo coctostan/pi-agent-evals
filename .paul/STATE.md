@@ -8,18 +8,18 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: J of 3 (Eval Expansion & New Assertion Types) — UNIFIED
-Plan: J-01 complete
-Status: Phase J delivered and merged. Phase K next.
-Last activity: 2026-04-14 — Phase J unified, PR #10 merged
+Phase: K of 3 (Documentation Refresh & New Baseline) — APPLIED
+Plan: K-01 complete (Task 1 applied; Task 2 deferred)
+Status: Phase K applied. PR #11 open, pending UNIFY.
+Last activity: 2026-04-14 — Phase K applied
 Progress:
-- Milestone: [▓▓▓▓▓▓░░░░] 67%
-- Phase J: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Milestone: [▓▓▓▓▓▓▓▓░░] 90%
+- Phase K: [▓▓▓▓▓▓▓▓▓░] 90%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase J complete, Phase K pending]
+  ✓        ✓        [Phase K applied, UNIFY pending]
 ```
 
 ## Accumulated Context
@@ -57,10 +57,10 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: d0967f1
-- Branch: main
-- Feature branch merged: feature/J-eval-expansion-assertion-types
-- PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: MERGED)
+- Last phase-transition commit: 5a03e99
+- Branch: feature/K-docs-baseline-refresh
+- Feature branch: feature/K-docs-baseline-refresh
+- PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
 
 ### Deferred Issues
 None yet.
@@ -70,11 +70,12 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase J unified — Phase K ready for PLAN
-Next action: /paul:plan for Phase K (CI Integration & Documentation Refresh)
+Stopped at: Phase K applied — UNIFY pending
+Next action: /paul:unify for Phase K
 Resume context:
-- Phase J delivered: 3 new assertion types (9 total), 11 evals, 67 tests
-- Summary: `.paul/phases/J-eval-expansion-assertion-types/J-01-SUMMARY.md`
-- Phase K focus: GitHub Action CI gating, README refresh, new baseline with 11 evals
-Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: MERGED)
+- Phase K delivered: README refreshed (11 evals, 9 types, /eval-compare, roadmap)
+- Summary: `.paul/phases/K-ci-integration-documentation-refresh/K-01-SUMMARY.md`
+- Baseline run deferred: `/eval-run all --baseline` in cmux after merge
+- This is the FINAL phase of Milestone v0.3
+Branch: feature/K-docs-baseline-refresh
+PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
