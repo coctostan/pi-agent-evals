@@ -42,6 +42,9 @@ export interface RunSummary {
   /** Model name used (from --model flag or "unknown"). */
   model: string;
 
+  /** Thinking level used (from --thinking flag or "default"). */
+  thinking: string;
+
   /** Individual eval prompt results. */
   evals: EvalRunResult[];
 

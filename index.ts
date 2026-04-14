@@ -15,7 +15,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { checkAssertions } from "./src/assertions.js";
@@ -272,6 +272,7 @@ const extension = (pi: ExtensionAPI): void => {
       const summary: RunSummary = {
         timestamp: new Date().toISOString(),
         model: options.model,
+        thinking: options.thinkingFlag ?? "default",
         evals: allResults,
         totals: {
           total: allResults.length,
@@ -325,6 +326,159 @@ const extension = (pi: ExtensionAPI): void => {
         lines.join("\n"),
         totals.passed === totals.total ? "info" : "warning",
       );
+    },
+  });
+
+  // ── /eval-compare command ──
+
+  pi.registerCommand("eval-compare", {
+    description: "Compare two eval result files: /eval-compare <file1> <file2|--baseline>",
+    handler: async (args, ctx) => {
+      const parts = (args as string)?.trim().split(/\s+/).filter(Boolean) ?? [];
+
+      if (parts.length === 0) {
+        ctx.ui.notify(
+          "Usage: /eval-compare <file1> <file2>\n" +
+            "       /eval-compare <file> --baseline\n\n" +
+            "Examples:\n" +
+            "  /eval-compare results/run1.json results/run2.json\n" +
+            "  /eval-compare results/run1.json --baseline",
+          "warning",
+        );
+        return;
+      }
+
+      // Resolve file paths
+      const hasBaseline = parts.includes("--baseline");
+      const fileParts = parts.filter((p) => p !== "--baseline");
+
+      let file1Path: string;
+      let file2Path: string;
+
+      if (hasBaseline) {
+        if (fileParts.length < 1) {
+          ctx.ui.notify("Usage: /eval-compare <file> --baseline", "warning");
+          return;
+        }
+        file1Path = resolve(ctx.cwd, fileParts[0]);
+        file2Path = join(ctx.cwd, "results", "baseline.json");
+      } else {
+        if (fileParts.length < 2) {
+          ctx.ui.notify(
+            "Two files required: /eval-compare <file1> <file2>\nOr use --baseline: /eval-compare <file> --baseline",
+            "warning",
+          );
+          return;
+        }
+        file1Path = resolve(ctx.cwd, fileParts[0]);
+        file2Path = resolve(ctx.cwd, fileParts[1]);
+      }
+
+      // Load files
+      if (!existsSync(file1Path)) {
+        ctx.ui.notify(`File not found: ${file1Path}`, "error");
+        return;
+      }
+      if (!existsSync(file2Path)) {
+        ctx.ui.notify(`File not found: ${file2Path}`, "error");
+        return;
+      }
+
+      let summary1: RunSummary;
+      let summary2: RunSummary;
+      try {
+        summary1 = JSON.parse(readFileSync(file1Path, "utf-8")) as RunSummary;
+      } catch {
+        ctx.ui.notify(`Invalid JSON: ${file1Path}`, "error");
+        return;
+      }
+      try {
+        summary2 = JSON.parse(readFileSync(file2Path, "utf-8")) as RunSummary;
+      } catch {
+        ctx.ui.notify(`Invalid JSON: ${file2Path}`, "error");
+        return;
+      }
+
+      // Build comparison maps: key → { passed, error? }
+      type EvalEntry = { passed: boolean; error?: string };
+      const map1 = new Map<string, EvalEntry>();
+      const map2 = new Map<string, EvalEntry>();
+
+      for (const r of summary1.evals) {
+        map1.set(`${r.evalName}[${r.promptIndex}]`, { passed: r.passed, error: r.error });
+      }
+      for (const r of summary2.evals) {
+        map2.set(`${r.evalName}[${r.promptIndex}]`, { passed: r.passed, error: r.error });
+      }
+
+      // Union of all keys, sorted
+      const allKeys = [...new Set([...map1.keys(), ...map2.keys()])].sort();
+
+      // Compute max eval name length for padding
+      const maxKeyLen = Math.max(4, ...allKeys.map((k) => k.length));
+
+      // Header
+      const ts1 = summary1.timestamp?.slice(0, 10) ?? "unknown";
+      const ts2 = summary2.timestamp?.slice(0, 10) ?? "unknown";
+      const label1 = `${summary1.model ?? "unknown"} / ${(summary1 as Record<string, unknown>).thinking ?? "unknown"}`;
+      const label2 = `${summary2.model ?? "unknown"} / ${(summary2 as Record<string, unknown>).thinking ?? "unknown"}`;
+
+      const lines: string[] = [
+        "═══ EVAL COMPARISON ═══",
+        "",
+        `File 1: ${label1}  (${ts1})`,
+        `File 2: ${label2}  (${ts2})`,
+        "",
+      ];
+
+      // Table header
+      const pad = (s: string, len: number) => s.padEnd(len);
+      const hdr = `${pad("Eval", maxKeyLen)}  File 1  File 2  Delta`;
+      lines.push(hdr);
+      lines.push("─".repeat(hdr.length));
+
+      // Table rows
+      const statusStr = (entry: EvalEntry | undefined): string => {
+        if (!entry) return " — ";
+        if (entry.error) return "ERR ";
+        return entry.passed ? "PASS" : "FAIL";
+      };
+
+      let count1Pass = 0;
+      let count1Total = 0;
+      let count2Pass = 0;
+      let count2Total = 0;
+
+      for (const key of allKeys) {
+        const e1 = map1.get(key);
+        const e2 = map2.get(key);
+
+        const s1 = statusStr(e1);
+        const s2 = statusStr(e2);
+
+        // Delta
+        let delta: string;
+        if (!e1 && e2) delta = " + ";
+        else if (e1 && !e2) delta = " − ";
+        else if (s1 === s2) delta = " = ";
+        else if (s1 === "FAIL" && s2 === "PASS") delta = " ▲ ";
+        else if (s1 === "PASS" && s2 === "FAIL") delta = " ▼ ";
+        else delta = " ~ ";
+
+        lines.push(`${pad(key, maxKeyLen)}  ${pad(s1, 6)}  ${pad(s2, 6)}  ${delta}`);
+
+        if (e1) { count1Total++; if (e1.passed && !e1.error) count1Pass++; }
+        if (e2) { count2Total++; if (e2.passed && !e2.error) count2Pass++; }
+      }
+
+      // Summary
+      const pct = (n: number, t: number) => t > 0 ? `${Math.round((n / t) * 100)}%` : "—";
+      lines.push("");
+      lines.push("Summary:");
+      lines.push(`  File 1: ${count1Pass}/${count1Total} passed (${pct(count1Pass, count1Total)})`);
+      lines.push(`  File 2: ${count2Pass}/${count2Total} passed (${pct(count2Pass, count2Total)})`);
+
+      ctx.ui.notify(lines.join("\n"), "info");
     },
   });
 };
