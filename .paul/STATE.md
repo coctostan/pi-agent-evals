@@ -8,19 +8,19 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: I of 3 (Test Foundation & Validation Hardening) — PLANNED
-Plan: I-01 ready for APPLY
-Status: Phase I plan written with 4 tasks, 6 acceptance criteria.
-Last activity: 2026-04-14 — Phase I plan created
+Phase: I of 3 (Test Foundation & Validation Hardening) — APPLIED
+Plan: I-01 complete
+Status: All 4 tasks executed. 46 tests passing, build clean. PR #9 open.
+Last activity: 2026-04-14 — Phase I-01 applied
 Progress:
-- Milestone: [░░░░░░░░░░] 0%
-- Phase I: [▓░░░░░░░░░] 10% (planned)
+- Milestone: [▓▓▓░░░░░░░] 30%
+- Phase I: [▓▓▓▓▓▓▓▓▓░] 90% (awaiting UNIFY)
 
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ◁                    [Phase I: PLAN complete, awaiting APPLY]
+  ✓        ✓        ◁     [Phase I: APPLY complete, awaiting UNIFY]
 ```
 
 ## Accumulated Context
@@ -51,10 +51,10 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: 077760a
-- Branch: main
-- Feature branch merged: feature/H-project-directory-support
-- PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: MERGED)
+- Last phase-transition commit: b70b2ef
+- Branch: feature/I-test-foundation-validation
+- Feature branch active: feature/I-test-foundation-validation
+- PR: https://github.com/coctostan/pi-agent-evals/pull/9 (state: OPEN)
 
 ### Deferred Issues
 None yet.
@@ -64,16 +64,15 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase I plan written — ready for APPLY
-Next action: /paul:apply for Phase I-01 (Test Foundation & Validation Hardening)
+Stopped at: Phase I-01 APPLY complete — ready for UNIFY
+Next action: /paul:unify for Phase I (Test Foundation & Validation Hardening)
 Resume context:
-- Plan: `.paul/phases/I-test-foundation-validation/I-01-PLAN.md`
-- 4 tasks: vitest setup, assertion tests, loader tests + hardening, pass_threshold + timeout wiring
-- Files to create: src/assertions.test.ts, src/loader.test.ts
-- Files to modify: package.json, src/loader.ts, index.ts
-- Protected: src/types.ts, src/tracer.ts, src/runner/*
-Branch: main
-PR: none (will create feature branch on APPLY)
+- 46 tests passing (28 assertion + 18 loader)
+- Loader hardened with assertion shape validation
+- pass_threshold enforced, per-eval timeout wired
+- PR: https://github.com/coctostan/pi-agent-evals/pull/9
+Branch: feature/I-test-foundation-validation
+PR: https://github.com/coctostan/pi-agent-evals/pull/9 (state: OPEN)
 
 ---
 *STATE.md — Updated after every significant action*
