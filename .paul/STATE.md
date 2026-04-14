@@ -8,18 +8,18 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: K of 3 (CI Integration & Documentation Refresh) — PLANNED
-Plan: K-01 ready for APPLY
-Status: Phase K plan written. Ready for implementation.
-Last activity: 2026-04-14 — Phase K planned
+Phase: K of 3 (Documentation Refresh & New Baseline) — APPLIED
+Plan: K-01 complete (Task 1 applied; Task 2 deferred)
+Status: Phase K applied. PR #11 open, pending UNIFY.
+Last activity: 2026-04-14 — Phase K applied
 Progress:
-- Milestone: [▓▓▓▓▓▓░░░░] 67%
-- Phase K: [░░░░░░░░░░] 0%
+- Milestone: [▓▓▓▓▓▓▓▓░░] 90%
+- Phase K: [▓▓▓▓▓▓▓▓▓░] 90%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓                        [Phase K planned, APPLY pending]
+  ✓        ✓        [Phase K applied, UNIFY pending]
 ```
 
 ## Accumulated Context
@@ -57,10 +57,10 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: d0967f1
-- Branch: main
-- Feature branch merged: feature/J-eval-expansion-assertion-types
-- PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: MERGED)
+- Last phase-transition commit: 5a03e99
+- Branch: feature/K-docs-baseline-refresh
+- Feature branch: feature/K-docs-baseline-refresh
+- PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
 
 ### Deferred Issues
 None yet.
@@ -70,11 +70,12 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase K plan written — APPLY pending
-Next action: /paul:apply for Phase K-01
+Stopped at: Phase K applied — UNIFY pending
+Next action: /paul:unify for Phase K
 Resume context:
-- Phase K plan: `.paul/phases/K-ci-integration-documentation-refresh/K-01-PLAN.md`
-- 2 tasks: README refresh (auto) + baseline run (manual, skippable)
-- No source code changes — docs + baseline only
-- CI dropped from scope (low value for single-developer project)
-Branch: main
+- Phase K delivered: README refreshed (11 evals, 9 types, /eval-compare, roadmap)
+- Summary: `.paul/phases/K-ci-integration-documentation-refresh/K-01-SUMMARY.md`
+- Baseline run deferred: `/eval-run all --baseline` in cmux after merge
+- This is the FINAL phase of Milestone v0.3
+Branch: feature/K-docs-baseline-refresh
+PR: https://github.com/coctostan/pi-agent-evals/pull/11 (state: OPEN)
