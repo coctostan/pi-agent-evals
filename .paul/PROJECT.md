@@ -10,16 +10,19 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 | Attribute | Value |
 |-----------|-------|
 | Version | 0.3.0 |
-| Status | v0.3 In Progress — Phase I pending |
-| Last Updated | 2026-04-14 (after v0.3 milestone scoping) |
+| Status | v0.3 In Progress — Phase J unified, Phase K pending |
+| Last Updated | 2026-04-14 (after Phase J unified) |
 **Current system summary:**
 - Tracer extension captures tool calls via lifecycle hooks (Phase A — shipped)
-- Assertion engine evaluates traces against 6 assertion types (Phase B — shipped)
+- Assertion engine evaluates traces against 9 assertion types (Phase B+J — shipped)
 - `/eval-check` command supports manual validation in live sessions (Phase B — shipped)
 - YAML eval loader with field validation is stable (Phase B — shipped)
 - CMUX runner + `/eval-run` command support automated eval execution with model/thinking flags (Phase D+F — shipped)
 - `RunSummary` records `thinking` metadata and `/eval-compare` supports side-by-side historical comparisons (Phase G — shipped)
 - Foreign-project execution via `--project-dir` with automatic `-e` extension loading (Phase H — shipped)
+- vitest test framework with 67 unit tests covering assertions and loader (Phase I — shipped)
+- 3 new assertion types: `tool_used_any`, `tool_no_errors`, `tool_preference` (Phase J — shipped)
+- 11 eval definitions across 3 categories (tool-routing, tool-discipline, context) with 26 prompts (Phase J — shipped)
 ## Scope Snapshot
 ### Validated
 - [x] Tracer extension (lifecycle hooks → trace.json) — v0.1
@@ -30,11 +33,11 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - [x] `/eval-run` model and thinking flag support — Phase F
 - [x] `RunSummary` captures `thinking` metadata — Phase G
 - [x] `/eval-compare` command compares two result files or a run against `baseline.json` — Phase G
+- [x] Test framework + unit test coverage for assertions and loader — Phase I
+- [x] Validation hardening: enforce pass_threshold, wire YAML timeout, deep assertion validation — Phase I
+- [x] 3 new assertion types: `tool_used_any`, `tool_no_errors`, `tool_preference` — Phase J
+- [x] 11 eval definitions (4 → 11) with expanded prompts, new `context` category — Phase J
 ### Planned (v0.3)
-- [ ] Test framework + unit test coverage for assertions and loader
-- [ ] Validation hardening: enforce pass_threshold, wire YAML timeout, deep assertion validation
-- [ ] 3 new assertion types: `tool_used_any`, `tool_no_errors`, `tool_preference`
-- [ ] 7 new eval definitions (4 → 11 total), update existing 4 with expanded prompts
 - [ ] CI integration (GitHub Action gating merge on regression)
 - [ ] Documentation refresh & new baseline
 

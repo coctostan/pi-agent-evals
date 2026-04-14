@@ -9,7 +9,7 @@ v0.3 Testing, Eval Expansion & CI
 | Phase | Name | Plans | Status |
 |-------|------|-------|---------|
 | I | Test Foundation & Validation Hardening | I-01 | ✅ 2026-04-14 |
-| J | Eval Expansion (4 → 11) & New Assertion Types | TBD | Pending |
+| J | Eval Expansion (4 → 11) & New Assertion Types | J-01 | ✅ 2026-04-14 |
 | K | CI Integration & Documentation Refresh | TBD | Pending |
 
 ### Phase I: Test Foundation & Validation Hardening
@@ -47,4 +47,4 @@ Archive: `.paul/milestones/v0.1.0-ROADMAP.md`
 </details>
 
 ---
-*Roadmap updated: 2026-04-14 — Milestone v0.3 planned*
+*Roadmap updated: 2026-04-14 — Phase J unified*
