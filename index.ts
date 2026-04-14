@@ -420,8 +420,8 @@ const extension = (pi: ExtensionAPI): void => {
       // Header
       const ts1 = summary1.timestamp?.slice(0, 10) ?? "unknown";
       const ts2 = summary2.timestamp?.slice(0, 10) ?? "unknown";
-      const label1 = `${summary1.model ?? "unknown"} / ${(summary1 as Record<string, unknown>).thinking ?? "unknown"}`;
-      const label2 = `${summary2.model ?? "unknown"} / ${(summary2 as Record<string, unknown>).thinking ?? "unknown"}`;
+      const label1 = `${summary1.model ?? "unknown"} / ${summary1.thinking ?? "default"}`;
+      const label2 = `${summary2.model ?? "unknown"} / ${summary2.thinking ?? "default"}`;
 
       const lines: string[] = [
         "═══ EVAL COMPARISON ═══",
