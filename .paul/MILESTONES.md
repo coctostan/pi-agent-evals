@@ -5,6 +5,7 @@ Completed milestone log for this project.
 | Milestone | Completed | Duration | Stats |
 |-----------|-----------|----------|-------|
 | v0.1 Initial Release | 2026-04-13 | ~6 hours | 5 phases, 5 plans |
+| v0.2 Model & Thinking Matrix | 2026-04-14 | ~2 days | 3 phases, 3 plans |
 
 ---
 
@@ -48,4 +49,39 @@ Completed milestone log for this project.
 
 ---
 
+## ✅ v0.2 Model & Thinking Matrix
+
+**Completed:** 2026-04-14
+**Duration:** ~2 days
+
+### Stats
+
+| Metric | Value |
+|--------|-------|
+| Phases | 3 (F, G, H) |
+| Plans | 3 |
+| Files changed | 4 core (index.ts, src/runner/types.ts, src/runner/cmux-runner.ts, README.md) |
+| New features | `--model`, `--thinking`, `--project-dir` flags, `/eval-compare` command |
+
+### Key Accomplishments
+
+- **Model flag** (`--model`) — Pass model selection to pi sessions, validated against `pi --list-models`
+- **Thinking flag** (`--thinking`) — Pass thinking level (off/minimal/low/medium/high/xhigh) to pi sessions
+- **Matrix execution** — `RunSummary` stores model and thinking metadata for cross-run comparison
+- **`/eval-compare` command** — Side-by-side comparison of two result files with delta indicators
+- **Foreign-project execution** (`--project-dir`) — Run evals against any project directory while keeping eval definitions and results in the extension repo
+- **Extension loading** — Runner automatically uses `pi -e` to load the tracer when targeting a foreign project
+
+### Key Decisions
+
+| Decision | Rationale | Phase |
+|----------|-----------|-------|
+| `--model` singular (not `--models`) | Matches pi CLI convention | F |
+| Model validation via `pi --list-models` with fallback | Graceful when offline or model list unavailable | F |
+| `RunSummary` stores thinking metadata | Enables cross-run comparison by thinking level | G |
+| Padded plain-text `/eval-compare` output | Readable in terminal without requiring rich formatting | G |
+| `extensionDir` separate from `projectDir` | Clean separation; `-e` flag only when needed | H |
+| `--project-dir` resolves relative to `ctx.cwd` | Consistent with how other pi paths resolve | H |
+
+---
 *MILESTONES.md — Updated after each milestone completion*
