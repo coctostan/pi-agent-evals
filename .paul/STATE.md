@@ -5,24 +5,24 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** v0.2 — Model & thinking matrix, project directory support
+**Current focus:** v0.2 — Project directory support, milestone closeout
 
 ## Current Position
 Milestone: v0.2 Model & Thinking Matrix
-Phase: G of 3 (Matrix Execution + Results Format) — Complete
-Plan: complete
-Status: Ready for next PLAN
-Last activity: 2026-04-14 — Phase G UNIFY complete
+Phase: H of 3 (Project Directory Support)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-04-14 — Phase G complete, transitioned to Phase H
 Progress:
 - Milestone: [▓▓▓▓▓▓░░░░] 66%
-- Phase G: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase H: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
+  ○        ○        ○     [Ready to start next loop — Phase H PLAN]
 ```
 
 ## Accumulated Context
@@ -43,9 +43,17 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - cmux surface ref parser handles 'OK surface:N pane:N workspace:N' format (Phase E bugfix)
 - Flag renamed from --models to --model (singular, matches pi CLI convention) (Phase F)
 - Model validation via pi --list-models with graceful fallback (Phase F)
+- `RunSummary` stores `thinking` metadata for cross-run comparison (Phase G)
+- `/eval-compare` uses padded plain-text output and treats missing evals as display gaps, not errors (Phase G)
 
 ### Fixes
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
+
+### Git State
+- Last commit: 000ce5f
+- Branch: main
+- Feature branch merged: feature/G-matrix-execution-results
+- PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: MERGED)
 
 ### Deferred Issues
 None yet.
@@ -56,11 +64,11 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-14
-Stopped at: Phase G UNIFY complete
-Next action: Transition Phase G → H
-Resume file: .paul/phases/G-matrix-execution-results/G-01-SUMMARY.md
-Branch: feature/G-matrix-execution-results
-PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: OPEN)
+Stopped at: Phase G complete, ready to plan Phase H
+Next action: /paul:plan for Phase H
+Resume file: .paul/ROADMAP.md
+Branch: main
+PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: MERGED)
 
 ---
 *STATE.md — Updated after every significant action*
