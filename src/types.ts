@@ -85,6 +85,9 @@ export interface EvalDefinition {
 
   /** Fraction of prompts that must pass all assertions (default: 1.0). */
   pass_threshold?: number;
+
+  /** Working directory override for this eval (e.g., a project with .codegraph/). Resolved at runtime. */
+  cwd?: string;
 }
 
 // ── Assertion Types ──────────────────────────────────────────

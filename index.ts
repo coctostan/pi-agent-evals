@@ -16,6 +16,7 @@
 
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { checkAssertions } from "./src/assertions.js";
@@ -280,12 +281,16 @@ const extension = (pi: ExtensionAPI): void => {
       for (const evalDef of evalDefs) {
         const evalResults: EvalRunResult[] = [];
         const evalTimeout = evalDef.timeout ?? 120_000;
+        // Per-eval cwd override (e.g., graph-for-structure needs a codegraph-indexed project)
+        const evalProjectDir = evalDef.cwd
+          ? resolve(evalDef.cwd.replace(/^~/, homedir()))
+          : options.projectDir;
         for (let promptIdx = 0; promptIdx < evalDef.prompts.length; promptIdx++) {
           const result = await runSingleEval(
             evalDef,
             promptIdx,
             evalDef.prompts[promptIdx],
-            { ...options, timeout: evalTimeout },
+            { ...options, timeout: evalTimeout, projectDir: evalProjectDir },
           );
           evalResults.push(result);
         }
