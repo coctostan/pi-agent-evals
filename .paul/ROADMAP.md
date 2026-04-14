@@ -4,7 +4,22 @@
 A pi extension + runner that measures specific agent behaviors — tool routing, discipline, preconditions — not end-to-end task completion.
 
 ## Current Milestone
-None — v0.2 complete. Next milestone TBD.
+v0.3 Testing, Matrix & CI
+
+| Phase | Name | Plans | Status |
+|-------|------|-------|---------|
+| I | Test Foundation & Validation Hardening | TBD | Pending |
+| J | Matrix Execution | TBD | Pending |
+| K | CI Integration & Documentation Refresh | TBD | Pending |
+
+### Phase I: Test Foundation & Validation Hardening
+**Focus:** Add vitest test framework, unit tests for assertion engine (all 6 types), unit tests for eval loader (valid/invalid YAML, deep assertion shape validation), enforce `pass_threshold` in runner, wire per-eval `timeout` from YAML to runner, harden YAML validation.
+
+### Phase J: Matrix Execution
+**Focus:** `--models` comma-separated multi-model flag, `--thinking-levels` comma-separated multi-thinking flag, cartesian product execution (model × thinking), aggregated `RunSummary` with per-combination breakdown, `/eval-compare` matrix-aware comparison.
+
+### Phase K: CI Integration & Documentation Refresh
+**Focus:** GitHub Action workflow (run evals on PR, gate on regression), README refresh (document `/eval-compare`, remove stale roadmap entries, add matrix execution docs), expand eval definitions.
 
 ## Completed Milestones
 
@@ -32,4 +47,4 @@ Archive: `.paul/milestones/v0.1.0-ROADMAP.md`
 </details>
 
 ---
-*Roadmap updated: 2026-04-14 — Phase H complete, milestone v0.2 complete*
+*Roadmap updated: 2026-04-14 — Milestone v0.3 planned*

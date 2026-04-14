@@ -9,16 +9,17 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 ## Current State
 | Attribute | Value |
 |-----------|-------|
-| Version | 0.2.0 |
-| Status | v0.2 In Progress — Phase G complete, Phase H pending |
-| Last Updated | 2026-04-14 (after Phase G) |
+| Version | 0.3.0 |
+| Status | v0.3 In Progress — Phase I pending |
+| Last Updated | 2026-04-14 (after v0.3 milestone scoping) |
 **Current system summary:**
 - Tracer extension captures tool calls via lifecycle hooks (Phase A — shipped)
 - Assertion engine evaluates traces against 6 assertion types (Phase B — shipped)
 - `/eval-check` command supports manual validation in live sessions (Phase B — shipped)
 - YAML eval loader with field validation is stable (Phase B — shipped)
 - CMUX runner + `/eval-run` command support automated eval execution with model/thinking flags (Phase D+F — shipped)
-- `RunSummary` now records `thinking` metadata and `/eval-compare` supports side-by-side historical comparisons (Phase G — shipped)
+- `RunSummary` records `thinking` metadata and `/eval-compare` supports side-by-side historical comparisons (Phase G — shipped)
+- Foreign-project execution via `--project-dir` with automatic `-e` extension loading (Phase H — shipped)
 ## Scope Snapshot
 ### Validated
 - [x] Tracer extension (lifecycle hooks → trace.json) — v0.1
@@ -29,10 +30,12 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - [x] `/eval-run` model and thinking flag support — Phase F
 - [x] `RunSummary` captures `thinking` metadata — Phase G
 - [x] `/eval-compare` command compares two result files or a run against `baseline.json` — Phase G
-### Planned
-- Model/thinking combination matrix execution across multiple runs
-- Project directory support (`--project-dir`)
-- CI integration (GitHub Action)
+### Planned (v0.3)
+- [ ] Test framework + unit test coverage for assertions and loader
+- [ ] Validation hardening: enforce pass_threshold, wire YAML timeout, deep assertion validation
+- [ ] Matrix execution: `--models` and `--thinking-levels` with cartesian product runs
+- [ ] CI integration (GitHub Action gating merge on regression)
+- [ ] Documentation refresh
 
 ### Out of Scope
 - End-to-end task completion benchmarks — this measures specific behaviors only
@@ -75,4 +78,4 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 - `~/pi/workspace/thinkingSpace/plans/pi-agent-evals-build-plan.md` — original build plan
 
 ---
-*Last updated: 2026-04-14 after Phase G completion*
+*Last updated: 2026-04-14 after v0.3 milestone scoping*

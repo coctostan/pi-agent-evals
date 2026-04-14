@@ -5,23 +5,22 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Milestone v0.2 complete. Next milestone TBD.
-
+**Current focus:** Milestone v0.3 — Testing, Matrix & CI
 ## Current Position
-Milestone: v0.2 Model & Thinking Matrix — COMPLETE
-Phase: H of 3 (Project Directory Support) — UNIFIED
-Plan: H-01 complete
-Status: Milestone v0.2 closed. All 3 phases (F, G, H) delivered.
-Last activity: 2026-04-14 — Phase H unified, milestone v0.2 closed
+Milestone: v0.3 Testing, Matrix & CI — PLANNING
+Phase: I of 3 (Test Foundation & Validation Hardening) — PENDING
+Plan: none yet
+Status: Milestone v0.3 opened. Phase I ready for PLAN.
+Last activity: 2026-04-14 — Milestone v0.3 scoped and roadmap updated
 Progress:
-- Milestone: [▓▓▓▓▓▓▓▓▓▓] 100%
-- Phase H: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Milestone: [░░░░░░░░░░] 0%
+- Phase I: [░░░░░░░░░░] 0%
 
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase H complete, milestone v0.2 closed]
+  ◁                          [Phase I: awaiting PLAN]
 ```
 
 ## Accumulated Context
@@ -65,14 +64,14 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Milestone v0.2 complete — UNIFY closed Phase H and the milestone
-Next action: Start planning next milestone
+Stopped at: Milestone v0.3 scoped — Phase I ready for PLAN
+Next action: /paul:plan for Phase I (Test Foundation & Validation Hardening)
 Resume context:
 - All v0.2 phases (F, G, H) delivered, unified, and merged
-- Summary: `.paul/phases/H-project-directory-support/H-01-SUMMARY.md`
-- Milestone archive: `.paul/milestones/v0.2.0-ROADMAP.md`
+- v0.3 scoped: 3 phases (I, J, K) covering tests, matrix execution, and CI
+- Phase I focus: vitest, assertion tests, loader tests, pass_threshold enforcement, timeout wiring, YAML validation depth
 Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/8 (state: MERGED)
+PR: none (new milestone)
 
 ---
 *STATE.md — Updated after every significant action*
