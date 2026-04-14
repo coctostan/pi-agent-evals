@@ -274,6 +274,119 @@ describe("Assertion shape validation", () => {
     const def = loadEvalDefinition("multi", tmpDir);
     expect(def.assertions).toHaveLength(6);
   });
+
+  it("throws for tool_used_any without tools", () => {
+    writeEval(
+      "bad",
+      minimalYaml({
+        assertions: [{ type: "tool_used_any", message: "need tools" }],
+      }),
+    );
+    expect(() => loadEvalDefinition("bad", tmpDir)).toThrow(
+      'missing required field "tools"',
+    );
+  });
+
+  it("throws for tool_used_any with empty tools array", () => {
+    writeEval(
+      "bad",
+      minimalYaml({
+        assertions: [{ type: "tool_used_any", tools: [], message: "need tools" }],
+      }),
+    );
+    expect(() => loadEvalDefinition("bad", tmpDir)).toThrow(
+      'missing required field "tools"',
+    );
+  });
+
+  it("throws for tool_no_errors without tool", () => {
+    writeEval(
+      "bad",
+      minimalYaml({
+        assertions: [{ type: "tool_no_errors", message: "no errors" }],
+      }),
+    );
+    expect(() => loadEvalDefinition("bad", tmpDir)).toThrow(
+      'missing required field "tool"',
+    );
+  });
+
+  it("throws for tool_preference without preferred", () => {
+    writeEval(
+      "bad",
+      minimalYaml({
+        assertions: [
+          { type: "tool_preference", over: ["Grep"], message: "prefer" },
+        ],
+      }),
+    );
+    expect(() => loadEvalDefinition("bad", tmpDir)).toThrow(
+      'missing required field "preferred"',
+    );
+  });
+
+  it("throws for tool_preference without over", () => {
+    writeEval(
+      "bad",
+      minimalYaml({
+        assertions: [
+          {
+            type: "tool_preference",
+            preferred: ["Read"],
+            message: "prefer",
+          },
+        ],
+      }),
+    );
+    expect(() => loadEvalDefinition("bad", tmpDir)).toThrow(
+      'missing required field "over"',
+    );
+  });
+
+  it("passes for well-formed eval with all 9 assertion types", () => {
+    writeEval(
+      "all-nine",
+      minimalYaml({
+        assertions: [
+          { type: "tool_used", tool: "Read", message: "use read" },
+          {
+            type: "tool_not_used",
+            tool: "Bash",
+            argument_pattern: "cat",
+            message: "no cat",
+          },
+          {
+            type: "tool_before",
+            first: "Read",
+            then: "Edit",
+            message: "read first",
+          },
+          {
+            type: "tool_called_with",
+            tool: "Read",
+            argument_pattern: "file\\.txt",
+            message: "right file",
+          },
+          { type: "parallel_calls", min_parallel: 2, message: "parallel" },
+          { type: "completed", message: "done" },
+          {
+            type: "tool_used_any",
+            tools: ["Grep", "find"],
+            message: "search",
+          },
+          { type: "tool_no_errors", tool: "Edit", message: "no errors" },
+          {
+            type: "tool_preference",
+            preferred: ["symbol_graph"],
+            over: ["Grep"],
+            message: "prefer graph",
+          },
+        ],
+      }),
+    );
+    const def = loadEvalDefinition("all-nine", tmpDir);
+    expect(def.assertions).toHaveLength(9);
+  });
 });
 
 describe("listEvalDefinitions", () => {

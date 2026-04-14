@@ -1,0 +1,27 @@
+name: search-over-find
+description: Model should use grep/find tools instead of bash find command
+category: tool-routing
+
+prompts:
+  - "Find all TypeScript files in the src/ directory"
+  - "List all .yml files in this project"
+  - "What test files exist in this codebase?"
+  - "Show me all files that contain 'TODO' comments"
+
+assertions:
+  # Should use structured search tools
+  - type: tool_used_any
+    tools: [Grep, find, ls]
+    message: Should use a structured search tool (Grep, find, or ls)
+
+  # Should NOT use bash find
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bfind\\s+[./~]"
+    message: Should NOT use bash find command
+
+  # Should NOT use bash ls for recursive search
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bls\\s+-[a-zA-Z]*R"
+    message: Should NOT use bash ls -R for recursive search

@@ -1,0 +1,14 @@
+name: parallel-tool-calls
+description: Model should parallelize independent reads/searches
+category: tool-discipline
+
+prompts:
+  - "Read both package.json and tsconfig.json and compare their contents"
+  - "Show me src/read.ts and src/edit.ts side by side"
+  - "Read index.ts, src/tracer.ts, and src/assertions.ts"
+
+assertions:
+  # At least one turn should have 2+ tool calls
+  - type: parallel_calls
+    min_parallel: 2
+    message: Should make parallel tool calls when reading multiple independent files

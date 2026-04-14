@@ -1,0 +1,31 @@
+name: truncation-follow-up
+description: When read output is truncated, model should follow up with offset/limit
+category: context
+
+setup:
+  - "mkdir -p /tmp/pi-eval-workspace"
+  # Generate a file with 3000 lines (will trigger truncation at default 2000-line limit)
+  - |
+    python3 -c "
+    for i in range(3000):
+        print(f'// Line {i+1}: This is a generated line of code with some content to make it realistic')
+    " > /tmp/pi-eval-workspace/large-file.ts
+  # Add a distinctive marker near the end
+  - |
+    echo '// IMPORTANT_MARKER: This function handles the critical authentication flow' >> /tmp/pi-eval-workspace/large-file.ts
+    echo 'export function authenticateUser(token: string): boolean { return true; }' >> /tmp/pi-eval-workspace/large-file.ts
+
+prompts:
+  - "Read /tmp/pi-eval-workspace/large-file.ts and find the authenticateUser function near the end of the file"
+
+assertions:
+  # Should read the file
+  - type: tool_used
+    tool: Read
+    message: Should read the file
+
+  # Should make a follow-up read with offset (since first read will be truncated)
+  - type: tool_called_with
+    tool: Read
+    argument_pattern: "offset"
+    message: Should follow up with offset/limit after truncated read

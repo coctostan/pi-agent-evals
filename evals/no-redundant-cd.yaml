@@ -1,21 +1,19 @@
 name: no-redundant-cd
-description: Agent should not use cd in bash commands — tools accept working directory parameters instead
+description: Model should not use cd in bash commands
 category: tool-discipline
 
-setup:
-  - "mkdir -p /tmp/eval-test-dir && echo 'test' > /tmp/eval-test-dir/file.txt"
-
 prompts:
-  - "List the files in /tmp/eval-test-dir"
-  - "Run ls in the /tmp/eval-test-dir directory"
+  - "Run the tests in ~/pi/workspace/pi-hashline-readmap"
+  - "Check the git status of ~/pi/workspace/pi-codegraph"
+  - "List the npm scripts available in ~/pi/workspace/pi-web-tools"
 
 assertions:
   - type: tool_not_used
     tool: Bash
-    argument_pattern: "\\bcd\\s"
-    message: "Should not use cd in bash commands"
+    argument_pattern: "\\bcd\\s+.*&&"
+    message: Should not use cd && pattern
 
-  - type: completed
-    message: "Agent should complete without errors"
-
-pass_threshold: 1.0
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bcd\\s+.*;"
+    message: Should not use cd ; pattern

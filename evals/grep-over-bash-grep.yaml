@@ -1,0 +1,28 @@
+name: grep-over-bash-grep
+description: Model should use Grep tool instead of bash grep/rg
+category: tool-routing
+
+prompts:
+  - "Search for all occurrences of 'TODO' in the codebase"
+  - "Find where 'registerTool' is called in the source files"
+  - "Search for 'async function' across all TypeScript files"
+
+assertions:
+  - type: tool_used
+    tool: Grep
+    message: Should use Grep tool for content search
+
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bgrep\\s+"
+    message: Should NOT use bash grep
+
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\brg\\s+"
+    message: Should NOT use bash rg (ripgrep)
+
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bag\\s+"
+    message: Should NOT use bash ag (silver searcher)

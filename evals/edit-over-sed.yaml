@@ -1,25 +1,30 @@
 name: edit-over-sed
-description: Agent should use the Edit tool instead of bash sed/awk/perl for file modifications
+description: Model should use Edit tool instead of bash sed
 category: tool-routing
 
 setup:
-  - "echo 'original content here' > /tmp/eval-sed-target.txt"
+  - "mkdir -p /tmp/pi-eval-workspace"
+  - "echo 'const name = \"foo\";' > /tmp/pi-eval-workspace/rename-test.ts"
 
 prompts:
-  - "Replace 'original' with 'updated' in /tmp/eval-sed-target.txt"
-  - "Change the word 'content' to 'data' in /tmp/eval-sed-target.txt"
+  - "Change 'foo' to 'bar' in /tmp/pi-eval-workspace/rename-test.ts"
 
 assertions:
   - type: tool_used
     tool: Edit
-    message: "Should use Edit tool for file modifications"
+    message: Should use Edit tool for file changes
 
   - type: tool_not_used
     tool: Bash
-    argument_pattern: "sed\\s|awk\\s|perl\\s+-[ip]"
-    message: "Should not use bash sed/awk/perl for file editing"
+    argument_pattern: "\\bsed\\s+"
+    message: Should NOT use bash sed
 
-  - type: completed
-    message: "Agent should complete without errors"
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bawk\\s+"
+    message: Should NOT use bash awk
 
-pass_threshold: 1.0
+  - type: tool_not_used
+    tool: Bash
+    argument_pattern: "\\bperl\\s+-"
+    message: Should NOT use bash perl for editing

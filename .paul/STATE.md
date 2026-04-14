@@ -8,19 +8,18 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: I of 3 (Test Foundation & Validation Hardening) — UNIFIED
-Plan: I-01 complete
-Status: Phase I delivered and merged. Phase J next.
-Last activity: 2026-04-14 — Phase I unified, PR #9 merged
+Phase: J of 3 (Eval Expansion & New Assertion Types) — APPLIED
+Plan: J-01 complete
+Status: Phase J applied. PR #10 open, pending UNIFY.
+Last activity: 2026-04-14 — Phase J applied
 Progress:
-- Milestone: [▓▓▓░░░░░░░] 33%
-- Phase I: [▓▓▓▓▓▓▓▓▓▓] 100%
-
+- Milestone: [▓▓▓▓▓▓░░░░] 60%
+- Phase J: [▓▓▓▓▓▓▓▓▓░] 90%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase I complete, Phase J pending]
+  ✓        ✓        [Phase J applied, UNIFY pending]
 ```
 
 ## Accumulated Context
@@ -47,18 +46,21 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - `--project-dir` resolves relative to ctx.cwd with existence+directory validation before cmux starts (Phase H)
 - `-e` flag only added to pi command when extensionDir !== projectDir — backward-compatible (Phase H)
 - vitest chosen for test framework (ESM-native, zero config, fast) (Phase I)
-- Assertion shape validation hard-fails on unknown types; Phase J will update (Phase I)
+- Assertion shape validation hard-fails on unknown types; Phase J updated with 3 new types (Phase I/J)
 - pass_threshold is display-layer only — RunSummary totals count individual prompts for backward compat (Phase I)
 - Test files as siblings (`src/*.test.ts`) not in separate test/ directory (Phase I)
+- `tool_no_errors` vacuous pass when tool absent (no calls = no errors) (Phase J)
+- `tool_preference` vacuous pass when neither group used; soft signal, no special display (Phase J)
+- graph-for-structure.yaml uses `cwd` field as informational metadata for runner (Phase J)
 
 ### Fixes
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last phase-transition commit: 946290d
-- Branch: main
-- Feature branch merged: feature/I-test-foundation-validation
-- PR: https://github.com/coctostan/pi-agent-evals/pull/9 (state: MERGED)
+- Last phase-transition commit: 11753bb
+- Branch: feature/J-eval-expansion-assertion-types
+- Feature branch: feature/J-eval-expansion-assertion-types
+- PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: OPEN)
 
 ### Deferred Issues
 None yet.
@@ -68,15 +70,11 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase I unified — Phase J ready for PLAN
-Next action: /paul:plan for Phase J (Eval Expansion & New Assertion Types)
+Stopped at: Phase J applied — UNIFY pending
+Next action: /paul:unify for Phase J
 Resume context:
-- Phase I delivered: 46 tests, loader hardening, pass_threshold, per-eval timeout
-- Summary: `.paul/phases/I-test-foundation-validation/I-01-SUMMARY.md`
-- Phase J focus: 3 new assertion types, 7 new evals, update existing 4
-- Source plan: `~/pi/workspace/thinkingSpace/plans/eval-definitions-v1.1.md`
-Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/9 (state: MERGED)
-
----
-*STATE.md — Updated after every significant action*
+- Phase J delivered: 3 new assertion types, 11 evals, 67 tests
+- Summary: `.paul/phases/J-eval-expansion-assertion-types/J-01-SUMMARY.md`
+- Phase K focus: CI integration, documentation refresh, new baseline
+Branch: feature/J-eval-expansion-assertion-types
+PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: OPEN)

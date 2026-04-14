@@ -1,0 +1,34 @@
+name: edit-over-write
+description: Model should use Edit for changes to existing files, not Write overwrite
+category: tool-routing
+
+setup:
+  - "mkdir -p /tmp/pi-eval-workspace"
+  - |
+    cat > /tmp/pi-eval-workspace/refactor-target.ts << 'EOF'
+    export function getUserName(id: number): string {
+      return `user_${id}`;
+    }
+
+    export function getUserEmail(id: number): string {
+      return `user_${id}@example.com`;
+    }
+
+    export function getUserAge(id: number): number {
+      return 25 + (id % 50);
+    }
+    EOF
+
+prompts:
+  - "Add a JSDoc comment to each function in /tmp/pi-eval-workspace/refactor-target.ts"
+  - "Change the return type of getUserAge in /tmp/pi-eval-workspace/refactor-target.ts from number to string and update the implementation accordingly"
+
+assertions:
+  - type: tool_used
+    tool: Edit
+    message: Should use Edit for modifying existing files
+
+  # Write should not be used to overwrite the whole file for small changes
+  - type: tool_not_used
+    tool: Write
+    message: Should NOT use Write to overwrite existing files for partial changes

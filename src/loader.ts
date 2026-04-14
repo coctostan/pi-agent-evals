@@ -17,6 +17,9 @@ const KNOWN_ASSERTION_TYPES = [
   "tool_called_with",
   "parallel_calls",
   "completed",
+  "tool_used_any",
+  "tool_no_errors",
+  "tool_preference",
 ] as const;
 
 function validateAssertionShape(
@@ -102,9 +105,35 @@ function validateAssertionShape(
     case "completed":
       break;
 
+    case "tool_used_any":
+      if (!Array.isArray(a.tools) || a.tools.length === 0) {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "tools" (non-empty string array)`,
+        );
+      }
+      break;
+
+    case "tool_no_errors":
+      if (typeof a.tool !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "tool"`,
+        );
+      }
+      break;
+
+    case "tool_preference":
+      if (!Array.isArray(a.preferred) || a.preferred.length === 0) {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "preferred" (non-empty string array)`,
+        );
+      }
+      if (!Array.isArray(a.over) || a.over.length === 0) {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "over" (non-empty string array)`,
+        );
+      }
+      break;
     default:
-      // NOTE: Phase J will add tool_used_any, tool_no_errors, tool_preference.
-      // When those are added, update this validation accordingly.
       throw new Error(
         `Eval definition ${filePath}: assertion[${index}]: unknown type "${type}". Available types: ${KNOWN_ASSERTION_TYPES.join(", ")}`,
       );
