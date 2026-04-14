@@ -8,18 +8,18 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: J of 3 (Eval Expansion & New Assertion Types) — UNIFIED
-Plan: J-01 complete
-Status: Phase J delivered and merged. Phase K next.
-Last activity: 2026-04-14 — Phase J unified, PR #10 merged
+Phase: K of 3 (CI Integration & Documentation Refresh) — PLANNED
+Plan: K-01 ready for APPLY
+Status: Phase K plan written. Ready for implementation.
+Last activity: 2026-04-14 — Phase K planned
 Progress:
 - Milestone: [▓▓▓▓▓▓░░░░] 67%
-- Phase J: [▓▓▓▓▓▓▓▓▓▓] 100%
+- Phase K: [░░░░░░░░░░] 0%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase J complete, Phase K pending]
+  ✓                        [Phase K planned, APPLY pending]
 ```
 
 ## Accumulated Context
@@ -70,11 +70,11 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase J unified — Phase K ready for PLAN
-Next action: /paul:plan for Phase K (CI Integration & Documentation Refresh)
+Stopped at: Phase K plan written — APPLY pending
+Next action: /paul:apply for Phase K-01
 Resume context:
-- Phase J delivered: 3 new assertion types (9 total), 11 evals, 67 tests
-- Summary: `.paul/phases/J-eval-expansion-assertion-types/J-01-SUMMARY.md`
-- Phase K focus: GitHub Action CI gating, README refresh, new baseline with 11 evals
+- Phase K plan: `.paul/phases/K-ci-integration-documentation-refresh/K-01-PLAN.md`
+- 2 tasks: README refresh (auto) + baseline run (manual, skippable)
+- No source code changes — docs + baseline only
+- CI dropped from scope (low value for single-developer project)
 Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/10 (state: MERGED)
