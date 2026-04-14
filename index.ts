@@ -276,16 +276,28 @@ const extension = (pi: ExtensionAPI): void => {
 
       // 5. Run evals
       const allResults: EvalRunResult[] = [];
+      const thresholdResults: { name: string; promptsPassed: number; total: number; threshold: number; evalPassed: boolean }[] = [];
       for (const evalDef of evalDefs) {
+        const evalResults: EvalRunResult[] = [];
+        const evalTimeout = evalDef.timeout ?? 120_000;
         for (let promptIdx = 0; promptIdx < evalDef.prompts.length; promptIdx++) {
           const result = await runSingleEval(
             evalDef,
             promptIdx,
             evalDef.prompts[promptIdx],
-            options,
+            { ...options, timeout: evalTimeout },
           );
-          allResults.push(result);
+          evalResults.push(result);
         }
+
+        // Apply pass_threshold
+        const threshold = evalDef.pass_threshold ?? 1.0;
+        const promptsPassed = evalResults.filter((r) => r.passed).length;
+        const passRate = evalResults.length > 0 ? promptsPassed / evalResults.length : 0;
+        const evalPassed = passRate >= threshold;
+        thresholdResults.push({ name: evalDef.name, promptsPassed, total: evalResults.length, threshold, evalPassed });
+
+        allResults.push(...evalResults);
       }
 
       // 6. Build summary
@@ -333,6 +345,14 @@ const extension = (pi: ExtensionAPI): void => {
               `  ${a.pass ? "✓" : "✗"} ${a.assertion.message} — ${a.detail}`,
             );
           }
+        }
+      }
+      // Per-eval threshold summary
+      for (const tr of thresholdResults) {
+        if (tr.threshold < 1.0 || tr.promptsPassed < tr.total) {
+          const threshIcon = tr.evalPassed ? "✓" : "✗";
+          const threshStr = tr.threshold < 1.0 ? ` (threshold: ${tr.threshold})` : "";
+          lines.push(`${threshIcon} ${tr.name}: ${tr.promptsPassed}/${tr.total} prompts passed${threshStr} — ${tr.evalPassed ? "PASS" : "FAIL"}`);
         }
       }
       const { totals } = summary;

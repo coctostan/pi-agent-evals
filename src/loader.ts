@@ -10,6 +10,107 @@ import { join } from "node:path";
 import { parse } from "yaml";
 import type { EvalDefinition } from "./types.js";
 
+const KNOWN_ASSERTION_TYPES = [
+  "tool_used",
+  "tool_not_used",
+  "tool_before",
+  "tool_called_with",
+  "parallel_calls",
+  "completed",
+] as const;
+
+function validateAssertionShape(
+  assertion: unknown,
+  index: number,
+  filePath: string,
+): void {
+  if (
+    typeof assertion !== "object" ||
+    assertion === null ||
+    typeof (assertion as Record<string, unknown>).type !== "string"
+  ) {
+    throw new Error(
+      `Eval definition ${filePath}: assertion[${index}]: must be an object with a string "type" field`,
+    );
+  }
+
+  const a = assertion as Record<string, unknown>;
+  const type = a.type as string;
+
+  if (typeof a.message !== "string") {
+    throw new Error(
+      `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "message"`,
+    );
+  }
+
+  switch (type) {
+    case "tool_used":
+      if (typeof a.tool !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "tool"`,
+        );
+      }
+      break;
+
+    case "tool_not_used":
+      if (typeof a.tool !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "tool"`,
+        );
+      }
+      if (a.argument_pattern !== undefined && typeof a.argument_pattern !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): "argument_pattern" must be a string if provided`,
+        );
+      }
+      break;
+
+    case "tool_before":
+      if (typeof a.first !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "first"`,
+        );
+      }
+      if (typeof a.then !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "then"`,
+        );
+      }
+      break;
+
+    case "tool_called_with":
+      if (typeof a.tool !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "tool"`,
+        );
+      }
+      if (typeof a.argument_pattern !== "string") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "argument_pattern"`,
+        );
+      }
+      break;
+
+    case "parallel_calls":
+      if (typeof a.min_parallel !== "number") {
+        throw new Error(
+          `Eval definition ${filePath}: assertion[${index}] (type: "${type}"): missing required field "min_parallel"`,
+        );
+      }
+      break;
+
+    case "completed":
+      break;
+
+    default:
+      // NOTE: Phase J will add tool_used_any, tool_no_errors, tool_preference.
+      // When those are added, update this validation accordingly.
+      throw new Error(
+        `Eval definition ${filePath}: assertion[${index}]: unknown type "${type}". Available types: ${KNOWN_ASSERTION_TYPES.join(", ")}`,
+      );
+  }
+}
+
 const REQUIRED_FIELDS = [
   "name",
   "description",
@@ -76,6 +177,10 @@ export function loadEvalDefinition(
     );
   }
 
+  const assertions = obj.assertions as unknown[];
+  for (let i = 0; i < assertions.length; i++) {
+    validateAssertionShape(assertions[i], i, filePath);
+  }
   return obj as unknown as EvalDefinition;
 }
 
