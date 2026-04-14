@@ -5,9 +5,9 @@
 See: .paul/PROJECT.md (updated 2026-04-13)
 
 **Core value:** Measure and validate that AI agents follow correct tool routing and behavioral discipline in pi sessions.
-**Current focus:** Milestone v0.3 — Testing, Matrix & CI
+**Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
-Milestone: v0.3 Testing, Matrix & CI — PLANNING
+Milestone: v0.3 Testing, Eval Expansion & CI — PLANNING
 Phase: I of 3 (Test Foundation & Validation Hardening) — PENDING
 Plan: none yet
 Status: Milestone v0.3 opened. Phase I ready for PLAN.

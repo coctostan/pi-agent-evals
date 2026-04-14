@@ -33,9 +33,10 @@ Measure and validate that AI agents follow correct tool routing and behavioral d
 ### Planned (v0.3)
 - [ ] Test framework + unit test coverage for assertions and loader
 - [ ] Validation hardening: enforce pass_threshold, wire YAML timeout, deep assertion validation
-- [ ] Matrix execution: `--models` and `--thinking-levels` with cartesian product runs
+- [ ] 3 new assertion types: `tool_used_any`, `tool_no_errors`, `tool_preference`
+- [ ] 7 new eval definitions (4 → 11 total), update existing 4 with expanded prompts
 - [ ] CI integration (GitHub Action gating merge on regression)
-- [ ] Documentation refresh
+- [ ] Documentation refresh & new baseline
 
 ### Out of Scope
 - End-to-end task completion benchmarks — this measures specific behaviors only

@@ -4,22 +4,22 @@
 A pi extension + runner that measures specific agent behaviors — tool routing, discipline, preconditions — not end-to-end task completion.
 
 ## Current Milestone
-v0.3 Testing, Matrix & CI
+v0.3 Testing, Eval Expansion & CI
 
 | Phase | Name | Plans | Status |
 |-------|------|-------|---------|
 | I | Test Foundation & Validation Hardening | TBD | Pending |
-| J | Matrix Execution | TBD | Pending |
+| J | Eval Expansion (4 → 11) & New Assertion Types | TBD | Pending |
 | K | CI Integration & Documentation Refresh | TBD | Pending |
 
 ### Phase I: Test Foundation & Validation Hardening
 **Focus:** Add vitest test framework, unit tests for assertion engine (all 6 types), unit tests for eval loader (valid/invalid YAML, deep assertion shape validation), enforce `pass_threshold` in runner, wire per-eval `timeout` from YAML to runner, harden YAML validation.
 
-### Phase J: Matrix Execution
-**Focus:** `--models` comma-separated multi-model flag, `--thinking-levels` comma-separated multi-thinking flag, cartesian product execution (model × thinking), aggregated `RunSummary` with per-combination breakdown, `/eval-compare` matrix-aware comparison.
+### Phase J: Eval Expansion (4 → 11) & New Assertion Types
+**Focus:** 3 new assertion types (`tool_used_any`, `tool_no_errors`, `tool_preference`), 7 new eval definitions (search-over-find, grep-over-bash-grep, parallel-tool-calls, edit-over-write, edit-accuracy, graph-for-structure, truncation-follow-up), update existing 4 evals with additional prompts, new `context` category. Source: `thinkingSpace/plans/eval-definitions-v1.1.md`.
 
 ### Phase K: CI Integration & Documentation Refresh
-**Focus:** GitHub Action workflow (run evals on PR, gate on regression), README refresh (document `/eval-compare`, remove stale roadmap entries, add matrix execution docs), expand eval definitions.
+**Focus:** GitHub Action workflow (run evals on PR, gate on regression), README refresh (document `/eval-compare`, remove stale roadmap entries, add eval expansion docs), update baseline with 11 evals.
 
 ## Completed Milestones
 
