@@ -50,7 +50,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Fix 02 (standard): removed unsafe `RunSummary` cast in `/eval-compare` header rendering to restore clean TypeScript builds | Phase G | index.ts
 
 ### Git State
-- Last commit: 000ce5f
+- Last phase-transition commit: ef0123a
 - Branch: main
 - Feature branch merged: feature/G-matrix-execution-results
 - PR: https://github.com/coctostan/pi-agent-evals/pull/7 (state: MERGED)
