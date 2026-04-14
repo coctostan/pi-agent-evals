@@ -13,7 +13,7 @@ Phases: 1 of 3 complete
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
 | F | Model & Thinking Discovery + Flags | F-01 | Complete | 2026-04-13 |
-| G | Matrix Execution + Results Format | TBD | Not started | - |
+| G | Matrix Execution + Results Format | G-01 | Planning | - |
 | H | Project Directory Support | TBD | Not started | - |
 
 ## Phase Details
