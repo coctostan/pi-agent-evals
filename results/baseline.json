@@ -1,163 +1,21 @@
 {
-  "timestamp": "2026-04-13T20:42:59.691Z",
-  "model": "Claude Opus 4.6",
+  "timestamp": "2026-04-14T17:30:34.568Z",
+  "model": "Claude Opus 4.6 (anthropic-cc)",
+  "thinking": "default",
   "evals": [
     {
-      "evalName": "edit-over-sed",
-      "description": "Agent should use the Edit tool instead of bash sed/awk/perl for file modifications",
-      "category": "tool-routing",
+      "evalName": "edit-accuracy",
+      "description": "Edit tool calls should succeed without hash mismatches or match failures",
+      "category": "tool-discipline",
       "promptIndex": 0,
-      "prompt": "Replace 'original' with 'updated' in /tmp/eval-sed-target.txt",
+      "prompt": "Add a 'timeout' field (number, default 30) to the Config interface in /tmp/pi-eval-workspace/accuracy-target.ts, update createConfig to accept and use it, and update validateConfig to check that timeout > 0",
       "assertions": [
         {
           "pass": true,
           "assertion": {
             "type": "tool_used",
             "tool": "Edit",
-            "message": "Should use Edit tool for file modifications"
-          },
-          "detail": "Found 1 Edit call"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_not_used",
-            "tool": "Bash",
-            "argument_pattern": "sed\\s|awk\\s|perl\\s+-[ip]",
-            "message": "Should not use bash sed/awk/perl for file editing"
-          },
-          "detail": "No Bash calls found"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
-          },
-          "detail": "Trace has 2 entries, 0 errors"
-        }
-      ],
-      "passed": true,
-      "duration": 19402
-    },
-    {
-      "evalName": "edit-over-sed",
-      "description": "Agent should use the Edit tool instead of bash sed/awk/perl for file modifications",
-      "category": "tool-routing",
-      "promptIndex": 1,
-      "prompt": "Change the word 'content' to 'data' in /tmp/eval-sed-target.txt",
-      "assertions": [
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_used",
-            "tool": "Edit",
-            "message": "Should use Edit tool for file modifications"
-          },
-          "detail": "Found 1 Edit call"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_not_used",
-            "tool": "Bash",
-            "argument_pattern": "sed\\s|awk\\s|perl\\s+-[ip]",
-            "message": "Should not use bash sed/awk/perl for file editing"
-          },
-          "detail": "No Bash calls found"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
-          },
-          "detail": "Trace has 2 entries, 0 errors"
-        }
-      ],
-      "passed": true,
-      "duration": 16388
-    },
-    {
-      "evalName": "no-redundant-cd",
-      "description": "Agent should not use cd in bash commands — tools accept working directory parameters instead",
-      "category": "tool-discipline",
-      "promptIndex": 0,
-      "prompt": "List the files in /tmp/eval-test-dir",
-      "assertions": [
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_not_used",
-            "tool": "Bash",
-            "argument_pattern": "\\bcd\\s",
-            "message": "Should not use cd in bash commands"
-          },
-          "detail": "No Bash calls found"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
-          },
-          "detail": "Trace has 1 entries, 0 errors"
-        }
-      ],
-      "passed": true,
-      "duration": 12376
-    },
-    {
-      "evalName": "no-redundant-cd",
-      "description": "Agent should not use cd in bash commands — tools accept working directory parameters instead",
-      "category": "tool-discipline",
-      "promptIndex": 1,
-      "prompt": "Run ls in the /tmp/eval-test-dir directory",
-      "assertions": [
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_not_used",
-            "tool": "Bash",
-            "argument_pattern": "\\bcd\\s",
-            "message": "Should not use cd in bash commands"
-          },
-          "detail": "No Bash calls found"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
-          },
-          "detail": "Trace has 1 entries, 0 errors"
-        }
-      ],
-      "passed": true,
-      "duration": 13438
-    },
-    {
-      "evalName": "read-before-edit",
-      "description": "Agent should read a file before editing it to get anchors and context",
-      "category": "tool-discipline",
-      "promptIndex": 0,
-      "prompt": "Change 'line2' to 'modified' in /tmp/eval-edit-target.txt",
-      "assertions": [
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_used",
-            "tool": "Read",
-            "message": "Should read file before editing"
-          },
-          "detail": "Found 1 Read call"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_used",
-            "tool": "Edit",
-            "message": "Should use Edit tool for modifications"
+            "message": "Should use Edit tool"
           },
           "detail": "Found 1 Edit call"
         },
@@ -167,82 +25,603 @@
             "type": "tool_before",
             "first": "Read",
             "then": "Edit",
-            "message": "Should read file before editing it"
+            "message": "Should read the file before editing"
           },
           "detail": "Read at index 0, Edit at index 1"
         },
         {
           "pass": true,
           "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
+            "type": "tool_no_errors",
+            "tool": "Edit",
+            "message": "Edit calls should succeed without hash mismatches or match failures"
           },
-          "detail": "Trace has 2 entries, 0 errors"
+          "detail": "1 Edit call(s), 0 errors"
         }
       ],
       "passed": true,
-      "duration": 17378
+      "duration": 21406
     },
     {
-      "evalName": "read-before-edit",
-      "description": "Agent should read a file before editing it to get anchors and context",
-      "category": "tool-discipline",
-      "promptIndex": 1,
-      "prompt": "Replace the second line of /tmp/eval-edit-target.txt with 'updated'",
+      "evalName": "edit-over-sed",
+      "description": "Model should use Edit tool instead of bash sed",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Change 'foo' to 'bar' in /tmp/pi-eval-workspace/rename-test.ts",
       "assertions": [
         {
           "pass": true,
           "assertion": {
             "type": "tool_used",
-            "tool": "Read",
-            "message": "Should read file before editing"
-          },
-          "detail": "Found 1 Read call"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "tool_used",
             "tool": "Edit",
-            "message": "Should use Edit tool for modifications"
+            "message": "Should use Edit tool for file changes"
           },
           "detail": "Found 1 Edit call"
         },
         {
           "pass": true,
           "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bsed\\s+",
+            "message": "Should NOT use bash sed"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bawk\\s+",
+            "message": "Should NOT use bash awk"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bperl\\s+-",
+            "message": "Should NOT use bash perl for editing"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 16385
+    },
+    {
+      "evalName": "edit-over-write",
+      "description": "Model should use Edit for changes to existing files, not Write overwrite",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Add a JSDoc comment to each function in /tmp/pi-eval-workspace/refactor-target.ts",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit for modifying existing files"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Write",
+            "message": "Should NOT use Write to overwrite existing files for partial changes"
+          },
+          "detail": "No Write calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 22395
+    },
+    {
+      "evalName": "edit-over-write",
+      "description": "Model should use Edit for changes to existing files, not Write overwrite",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "Change the return type of getUserAge in /tmp/pi-eval-workspace/refactor-target.ts from number to string and update the implementation accordingly",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Edit",
+            "message": "Should use Edit for modifying existing files"
+          },
+          "detail": "Found 1 Edit call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Write",
+            "message": "Should NOT use Write to overwrite existing files for partial changes"
+          },
+          "detail": "No Write calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 19447
+    },
+    {
+      "evalName": "graph-for-structure",
+      "description": "Model should use codegraph tools for structural questions about code relationships",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "What functions call registerReadTool in this project?",
+      "assertions": [
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "symbol_graph",
+              "symbol_card",
+              "symbol_search",
+              "impact",
+              "trace",
+              "graph_query",
+              "symbol_contract"
+            ],
+            "message": "Should use a codegraph tool for structural code questions"
+          },
+          "detail": "None of [symbol_graph, symbol_card, symbol_search, impact, trace, graph_query, symbol_contract] found in trace"
+        },
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_preference",
+            "preferred": [
+              "symbol_graph",
+              "symbol_card",
+              "impact",
+              "trace"
+            ],
+            "over": [
+              "Grep"
+            ],
+            "message": "Should prefer graph tools over grep for structural questions"
+          },
+          "detail": "Preferred tools: 0 calls, over tools: 2 calls (wanted preferred > over)"
+        }
+      ],
+      "passed": false,
+      "duration": 21456
+    },
+    {
+      "evalName": "graph-for-structure",
+      "description": "Model should use codegraph tools for structural questions about code relationships",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "Show me the dependencies of the edit tool — what does it import and use?",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "symbol_graph",
+              "symbol_card",
+              "symbol_search",
+              "impact",
+              "trace",
+              "graph_query",
+              "symbol_contract"
+            ],
+            "message": "Should use a codegraph tool for structural code questions"
+          },
+          "detail": "Found tool(s): symbol_search"
+        },
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_preference",
+            "preferred": [
+              "symbol_graph",
+              "symbol_card",
+              "impact",
+              "trace"
+            ],
+            "over": [
+              "Grep"
+            ],
+            "message": "Should prefer graph tools over grep for structural questions"
+          },
+          "detail": "Preferred tools: 0 calls, over tools: 3 calls (wanted preferred > over)"
+        }
+      ],
+      "passed": false,
+      "duration": 98505
+    },
+    {
+      "evalName": "graph-for-structure",
+      "description": "Model should use codegraph tools for structural questions about code relationships",
+      "category": "tool-routing",
+      "promptIndex": 2,
+      "prompt": "What symbols does src/read.ts export, and where are they consumed?",
+      "assertions": [
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "symbol_graph",
+              "symbol_card",
+              "symbol_search",
+              "impact",
+              "trace",
+              "graph_query",
+              "symbol_contract"
+            ],
+            "message": "Should use a codegraph tool for structural code questions"
+          },
+          "detail": "None of [symbol_graph, symbol_card, symbol_search, impact, trace, graph_query, symbol_contract] found in trace"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_preference",
+            "preferred": [
+              "symbol_graph",
+              "symbol_card",
+              "impact",
+              "trace"
+            ],
+            "over": [
+              "Grep"
+            ],
+            "message": "Should prefer graph tools over grep for structural questions"
+          },
+          "detail": "Neither preferred nor over tools used (vacuous pass)"
+        }
+      ],
+      "passed": false,
+      "duration": 20434
+    },
+    {
+      "evalName": "grep-over-bash-grep",
+      "description": "Model should use Grep tool instead of bash grep/rg",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Search for all occurrences of 'TODO' in the codebase",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Grep",
+            "message": "Should use Grep tool for content search"
+          },
+          "detail": "Found 2 Grep calls"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bgrep\\s+",
+            "message": "Should NOT use bash grep"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\brg\\s+",
+            "message": "Should NOT use bash rg (ripgrep)"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bag\\s+",
+            "message": "Should NOT use bash ag (silver searcher)"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 26364
+    },
+    {
+      "evalName": "grep-over-bash-grep",
+      "description": "Model should use Grep tool instead of bash grep/rg",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "Find where 'registerTool' is called in the source files",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Grep",
+            "message": "Should use Grep tool for content search"
+          },
+          "detail": "Found 2 Grep calls"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bgrep\\s+",
+            "message": "Should NOT use bash grep"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\brg\\s+",
+            "message": "Should NOT use bash rg (ripgrep)"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bag\\s+",
+            "message": "Should NOT use bash ag (silver searcher)"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 20364
+    },
+    {
+      "evalName": "grep-over-bash-grep",
+      "description": "Model should use Grep tool instead of bash grep/rg",
+      "category": "tool-routing",
+      "promptIndex": 2,
+      "prompt": "Search for 'async function' across all TypeScript files",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Grep",
+            "message": "Should use Grep tool for content search"
+          },
+          "detail": "Found 2 Grep calls"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bgrep\\s+",
+            "message": "Should NOT use bash grep"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\brg\\s+",
+            "message": "Should NOT use bash rg (ripgrep)"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bag\\s+",
+            "message": "Should NOT use bash ag (silver searcher)"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 19376
+    },
+    {
+      "evalName": "no-redundant-cd",
+      "description": "Model should not use cd in bash commands",
+      "category": "tool-discipline",
+      "promptIndex": 0,
+      "prompt": "Run the tests in ~/pi/workspace/pi-hashline-readmap",
+      "assertions": [
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*&&",
+            "message": "Should not use cd && pattern"
+          },
+          "detail": "Found Bash call matching pattern at turn 2"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*;",
+            "message": "Should not use cd ; pattern"
+          },
+          "detail": "Found 1 Bash call but none matched pattern"
+        }
+      ],
+      "passed": false,
+      "duration": 25445
+    },
+    {
+      "evalName": "no-redundant-cd",
+      "description": "Model should not use cd in bash commands",
+      "category": "tool-discipline",
+      "promptIndex": 1,
+      "prompt": "Check the git status of ~/pi/workspace/pi-codegraph",
+      "assertions": [
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*&&",
+            "message": "Should not use cd && pattern"
+          },
+          "detail": "Found Bash call matching pattern at turn 0"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*;",
+            "message": "Should not use cd ; pattern"
+          },
+          "detail": "Found 3 Bash calls but none matched pattern"
+        }
+      ],
+      "passed": false,
+      "duration": 18476
+    },
+    {
+      "evalName": "no-redundant-cd",
+      "description": "Model should not use cd in bash commands",
+      "category": "tool-discipline",
+      "promptIndex": 2,
+      "prompt": "List the npm scripts available in ~/pi/workspace/pi-web-tools",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*&&",
+            "message": "Should not use cd && pattern"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcd\\s+.*;",
+            "message": "Should not use cd ; pattern"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 14401
+    },
+    {
+      "evalName": "parallel-tool-calls",
+      "description": "Model should parallelize independent reads/searches",
+      "category": "tool-discipline",
+      "promptIndex": 0,
+      "prompt": "Read both package.json and tsconfig.json and compare their contents",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "parallel_calls",
+            "min_parallel": 2,
+            "message": "Should make parallel tool calls when reading multiple independent files"
+          },
+          "detail": "Found group of 2 parallel calls"
+        }
+      ],
+      "passed": true,
+      "duration": 28519
+    },
+    {
+      "evalName": "parallel-tool-calls",
+      "description": "Model should parallelize independent reads/searches",
+      "category": "tool-discipline",
+      "promptIndex": 1,
+      "prompt": "Show me src/read.ts and src/edit.ts side by side",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "parallel_calls",
+            "min_parallel": 2,
+            "message": "Should make parallel tool calls when reading multiple independent files"
+          },
+          "detail": "Found group of 2 parallel calls"
+        }
+      ],
+      "passed": true,
+      "duration": 21559
+    },
+    {
+      "evalName": "parallel-tool-calls",
+      "description": "Model should parallelize independent reads/searches",
+      "category": "tool-discipline",
+      "promptIndex": 2,
+      "prompt": "Read index.ts, src/tracer.ts, and src/assertions.ts",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "parallel_calls",
+            "min_parallel": 2,
+            "message": "Should make parallel tool calls when reading multiple independent files"
+          },
+          "detail": "Found group of 3 parallel calls"
+        }
+      ],
+      "passed": true,
+      "duration": 33599
+    },
+    {
+      "evalName": "read-before-edit",
+      "description": "Model should read a file before editing it",
+      "category": "tool-discipline",
+      "promptIndex": 0,
+      "prompt": "Change the return value in /tmp/pi-eval-workspace/greeting.ts from 'world' to 'hello'",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
             "type": "tool_before",
             "first": "Read",
             "then": "Edit",
-            "message": "Should read file before editing it"
+            "message": "Must read the file before editing it"
           },
           "detail": "Read at index 0, Edit at index 1"
-        },
-        {
-          "pass": true,
-          "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
-          },
-          "detail": "Trace has 2 entries, 0 errors"
         }
       ],
       "passed": true,
-      "duration": 17443
+      "duration": 16396
     },
     {
       "evalName": "read-over-cat",
-      "description": "Agent should use the Read tool instead of bash cat/head/tail to read file contents",
+      "description": "Model should use Read tool instead of bash cat",
       "category": "tool-routing",
       "promptIndex": 0,
-      "prompt": "Read the contents of /tmp/eval-test-file.txt and tell me what it says",
+      "prompt": "Show me the contents of package.json",
       "assertions": [
         {
           "pass": true,
           "assertion": {
             "type": "tool_used",
             "tool": "Read",
-            "message": "Should use Read tool for file contents"
+            "message": "Should use Read tool for file reading"
           },
           "detail": "Found 1 Read call"
         },
@@ -251,36 +630,38 @@
           "assertion": {
             "type": "tool_not_used",
             "tool": "Bash",
-            "argument_pattern": "cat\\s|head\\s|tail\\s|less\\s",
-            "message": "Should not use bash cat/head/tail/less for file reading"
+            "argument_pattern": "\\bcat\\s+",
+            "message": "Should NOT use bash cat"
           },
           "detail": "No Bash calls found"
         },
         {
           "pass": true,
           "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\b(head|tail|less|more)\\s+",
+            "message": "Should NOT use bash head/tail/less/more"
           },
-          "detail": "Trace has 1 entries, 0 errors"
+          "detail": "No Bash calls found"
         }
       ],
       "passed": true,
-      "duration": 12469
+      "duration": 17397
     },
     {
       "evalName": "read-over-cat",
-      "description": "Agent should use the Read tool instead of bash cat/head/tail to read file contents",
+      "description": "Model should use Read tool instead of bash cat",
       "category": "tool-routing",
       "promptIndex": 1,
-      "prompt": "Show me what's in /tmp/eval-test-file.txt",
+      "prompt": "Read src/index.ts and tell me what it exports",
       "assertions": [
         {
           "pass": true,
           "assertion": {
             "type": "tool_used",
             "tool": "Read",
-            "message": "Should use Read tool for file contents"
+            "message": "Should use Read tool for file reading"
           },
           "detail": "Found 1 Read call"
         },
@@ -289,28 +670,316 @@
           "assertion": {
             "type": "tool_not_used",
             "tool": "Bash",
-            "argument_pattern": "cat\\s|head\\s|tail\\s|less\\s",
-            "message": "Should not use bash cat/head/tail/less for file reading"
+            "argument_pattern": "\\bcat\\s+",
+            "message": "Should NOT use bash cat"
           },
           "detail": "No Bash calls found"
         },
         {
           "pass": true,
           "assertion": {
-            "type": "completed",
-            "message": "Agent should complete without errors"
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\b(head|tail|less|more)\\s+",
+            "message": "Should NOT use bash head/tail/less/more"
           },
-          "detail": "Trace has 1 entries, 0 errors"
+          "detail": "No Bash calls found"
         }
       ],
       "passed": true,
-      "duration": 12448
+      "duration": 17358
+    },
+    {
+      "evalName": "read-over-cat",
+      "description": "Model should use Read tool instead of bash cat",
+      "category": "tool-routing",
+      "promptIndex": 2,
+      "prompt": "What's in tsconfig.json?",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should use Read tool for file reading"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcat\\s+",
+            "message": "Should NOT use bash cat"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\b(head|tail|less|more)\\s+",
+            "message": "Should NOT use bash head/tail/less/more"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 14427
+    },
+    {
+      "evalName": "read-over-cat",
+      "description": "Model should use Read tool instead of bash cat",
+      "category": "tool-routing",
+      "promptIndex": 3,
+      "prompt": "Display the first 50 lines of README.md",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should use Read tool for file reading"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bcat\\s+",
+            "message": "Should NOT use bash cat"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\b(head|tail|less|more)\\s+",
+            "message": "Should NOT use bash head/tail/less/more"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 14457
+    },
+    {
+      "evalName": "search-over-find",
+      "description": "Model should use grep/find tools instead of bash find command",
+      "category": "tool-routing",
+      "promptIndex": 0,
+      "prompt": "Find all TypeScript files in the src/ directory",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "Grep",
+              "find",
+              "ls"
+            ],
+            "message": "Should use a structured search tool (Grep, find, or ls)"
+          },
+          "detail": "Found tool(s): find"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bfind\\s+[./~]",
+            "message": "Should NOT use bash find command"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bls\\s+-[a-zA-Z]*R",
+            "message": "Should NOT use bash ls -R for recursive search"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 13370
+    },
+    {
+      "evalName": "search-over-find",
+      "description": "Model should use grep/find tools instead of bash find command",
+      "category": "tool-routing",
+      "promptIndex": 1,
+      "prompt": "List all .yml files in this project",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "Grep",
+              "find",
+              "ls"
+            ],
+            "message": "Should use a structured search tool (Grep, find, or ls)"
+          },
+          "detail": "Found tool(s): find"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bfind\\s+[./~]",
+            "message": "Should NOT use bash find command"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bls\\s+-[a-zA-Z]*R",
+            "message": "Should NOT use bash ls -R for recursive search"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 17407
+    },
+    {
+      "evalName": "search-over-find",
+      "description": "Model should use grep/find tools instead of bash find command",
+      "category": "tool-routing",
+      "promptIndex": 2,
+      "prompt": "What test files exist in this codebase?",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "Grep",
+              "find",
+              "ls"
+            ],
+            "message": "Should use a structured search tool (Grep, find, or ls)"
+          },
+          "detail": "Found tool(s): find"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bfind\\s+[./~]",
+            "message": "Should NOT use bash find command"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bls\\s+-[a-zA-Z]*R",
+            "message": "Should NOT use bash ls -R for recursive search"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 14402
+    },
+    {
+      "evalName": "search-over-find",
+      "description": "Model should use grep/find tools instead of bash find command",
+      "category": "tool-routing",
+      "promptIndex": 3,
+      "prompt": "Show me all files that contain 'TODO' comments",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used_any",
+            "tools": [
+              "Grep",
+              "find",
+              "ls"
+            ],
+            "message": "Should use a structured search tool (Grep, find, or ls)"
+          },
+          "detail": "Found tool(s): Grep"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bfind\\s+[./~]",
+            "message": "Should NOT use bash find command"
+          },
+          "detail": "No Bash calls found"
+        },
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_not_used",
+            "tool": "Bash",
+            "argument_pattern": "\\bls\\s+-[a-zA-Z]*R",
+            "message": "Should NOT use bash ls -R for recursive search"
+          },
+          "detail": "No Bash calls found"
+        }
+      ],
+      "passed": true,
+      "duration": 21465
+    },
+    {
+      "evalName": "truncation-follow-up",
+      "description": "When read output is truncated, model should follow up with offset/limit",
+      "category": "context",
+      "promptIndex": 0,
+      "prompt": "Read /tmp/pi-eval-workspace/large-file.ts and find the authenticateUser function near the end of the file",
+      "assertions": [
+        {
+          "pass": true,
+          "assertion": {
+            "type": "tool_used",
+            "tool": "Read",
+            "message": "Should read the file"
+          },
+          "detail": "Found 1 Read call"
+        },
+        {
+          "pass": false,
+          "assertion": {
+            "type": "tool_called_with",
+            "tool": "Read",
+            "argument_pattern": "offset",
+            "message": "Should follow up with offset/limit after truncated read"
+          },
+          "detail": "No Read call matched pattern"
+        }
+      ],
+      "passed": false,
+      "duration": 15403
     }
   ],
   "totals": {
-    "total": 8,
-    "passed": 8,
-    "failed": 0,
+    "total": 26,
+    "passed": 20,
+    "failed": 6,
     "errored": 0
   }
 }
