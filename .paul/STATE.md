@@ -8,19 +8,18 @@ See: .paul/PROJECT.md (updated 2026-04-13)
 **Current focus:** Milestone v0.3 — Testing, Eval Expansion & CI
 ## Current Position
 Milestone: v0.3 Testing, Eval Expansion & CI — IN PROGRESS
-Phase: I of 3 (Test Foundation & Validation Hardening) — UNIFIED
-Plan: I-01 complete
-Status: Phase I delivered and merged. Phase J next.
-Last activity: 2026-04-14 — Phase I unified, PR #9 merged
+Phase: J of 3 (Eval Expansion & New Assertion Types) — PLANNED
+Plan: J-01 ready for APPLY
+Status: Phase J plan written. Ready for implementation.
+Last activity: 2026-04-14 — Phase J planned
 Progress:
 - Milestone: [▓▓▓░░░░░░░] 33%
-- Phase I: [▓▓▓▓▓▓▓▓▓▓] 100%
-
+- Phase J: [░░░░░░░░░░] 0%
 ## Loop Position
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase I complete, Phase J pending]
+  ✓                        [Phase J planned, APPLY pending]
 ```
 
 ## Accumulated Context
@@ -68,15 +67,11 @@ None yet.
 
 ## Session Continuity
 Last session: 2026-04-14
-Stopped at: Phase I unified — Phase J ready for PLAN
-Next action: /paul:plan for Phase J (Eval Expansion & New Assertion Types)
+Stopped at: Phase J plan written — APPLY pending
+Next action: /paul:apply for Phase J-01
 Resume context:
-- Phase I delivered: 46 tests, loader hardening, pass_threshold, per-eval timeout
-- Summary: `.paul/phases/I-test-foundation-validation/I-01-SUMMARY.md`
-- Phase J focus: 3 new assertion types, 7 new evals, update existing 4
-- Source plan: `~/pi/workspace/thinkingSpace/plans/eval-definitions-v1.1.md`
+- Phase J plan: `.paul/phases/J-eval-expansion-assertion-types/J-01-PLAN.md`
+- 5 tasks: types.ts (3 new interfaces) → assertions.ts (3 checkers) → loader.ts (validation) → tests → 11 eval YAMLs
+- Source spec: `~/pi/workspace/thinkingSpace/plans/eval-definitions-v1.1.md`
+- 46 existing tests must remain green
 Branch: main
-PR: https://github.com/coctostan/pi-agent-evals/pull/9 (state: MERGED)
-
----
-*STATE.md — Updated after every significant action*

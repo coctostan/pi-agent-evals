@@ -45,6 +45,12 @@ function checkOne(trace: EvalTrace, assertion: Assertion): AssertionResult {
       return checkParallelCalls(trace, assertion);
     case "completed":
       return checkCompleted(trace, assertion);
+    case "tool_used_any":
+      return checkToolUsedAny(trace, assertion);
+    case "tool_no_errors":
+      return checkToolNoErrors(trace, assertion);
+    case "tool_preference":
+      return checkToolPreference(trace, assertion);
     default: {
       // Exhaustive check — TypeScript will error if a case is missing
       const _exhaustive: never = assertion;
@@ -297,5 +303,101 @@ function checkCompleted(
     pass: true,
     assertion,
     detail: `Trace has ${trace.entries.length} entries, 0 errors`,
+  };
+}
+
+/** Assert that at least one of the listed tools was used. */
+function checkToolUsedAny(
+  trace: EvalTrace,
+  assertion: Extract<Assertion, { type: "tool_used_any" }>,
+): AssertionResult {
+  const found = assertion.tools.filter((tool) =>
+    trace.entries.some((e) => toolNameMatch(e.toolName, tool)),
+  );
+
+  if (found.length > 0) {
+    return {
+      pass: true,
+      assertion,
+      detail: `Found tool(s): ${found.join(", ")}`,
+    };
+  }
+
+  return {
+    pass: false,
+    assertion,
+    detail: `None of [${assertion.tools.join(", ")}] found in trace`,
+  };
+}
+
+/** Assert that a specific tool had no error results. */
+function checkToolNoErrors(
+  trace: EvalTrace,
+  assertion: Extract<Assertion, { type: "tool_no_errors" }>,
+): AssertionResult {
+  const toolEntries = trace.entries.filter(
+    (e) => toolNameMatch(e.toolName, assertion.tool),
+  );
+
+  if (toolEntries.length === 0) {
+    // Vacuous pass — tool was never called, so no errors
+    return {
+      pass: true,
+      assertion,
+      detail: `No ${assertion.tool} calls in trace (vacuous pass)`,
+    };
+  }
+
+  const errorCount = toolEntries.filter((e) => e.isError).length;
+
+  if (errorCount === 0) {
+    return {
+      pass: true,
+      assertion,
+      detail: `${toolEntries.length} ${assertion.tool} call(s), 0 errors`,
+    };
+  }
+
+  return {
+    pass: false,
+    assertion,
+    detail: `${errorCount} of ${toolEntries.length} ${assertion.tool} call(s) had errors`,
+  };
+}
+
+/** Assert that preferred tools were used more than alternative tools. Soft signal. */
+function checkToolPreference(
+  trace: EvalTrace,
+  assertion: Extract<Assertion, { type: "tool_preference" }>,
+): AssertionResult {
+  const preferredCount = trace.entries.filter((e) =>
+    assertion.preferred.some((p) => toolNameMatch(e.toolName, p)),
+  ).length;
+
+  const overCount = trace.entries.filter((e) =>
+    assertion.over.some((o) => toolNameMatch(e.toolName, o)),
+  ).length;
+
+  if (preferredCount === 0 && overCount === 0) {
+    // Vacuous pass — neither preferred nor over tools were used
+    return {
+      pass: true,
+      assertion,
+      detail: "Neither preferred nor over tools used (vacuous pass)",
+    };
+  }
+
+  if (preferredCount > overCount) {
+    return {
+      pass: true,
+      assertion,
+      detail: `Preferred tools: ${preferredCount} calls, over tools: ${overCount} calls`,
+    };
+  }
+
+  return {
+    pass: false,
+    assertion,
+    detail: `Preferred tools: ${preferredCount} calls, over tools: ${overCount} calls (wanted preferred > over)`,
   };
 }

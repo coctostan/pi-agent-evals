@@ -352,6 +352,154 @@ describe("completed", () => {
   });
 });
 
+describe("tool_used_any", () => {
+  const assertion: Assertion = {
+    type: "tool_used_any",
+    tools: ["Grep", "find", "ls"],
+    message: "Should use a search tool",
+  };
+
+  it("passes when one of the listed tools is present", () => {
+    const trace = makeTrace([{ toolName: "Grep" }, { toolName: "Read" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("Grep");
+  });
+
+  it("passes when multiple listed tools are present", () => {
+    const trace = makeTrace([{ toolName: "Grep" }, { toolName: "find" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("Grep");
+    expect(result.detail).toContain("find");
+  });
+
+  it("fails when none of the listed tools are present", () => {
+    const trace = makeTrace([{ toolName: "Bash" }, { toolName: "Read" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(false);
+    expect(result.detail).toContain("None of");
+  });
+
+  it("fails on an empty trace", () => {
+    const trace = makeTrace([]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(false);
+  });
+
+  it("matches tool names case-insensitively", () => {
+    const trace = makeTrace([{ toolName: "grep" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+  });
+});
+
+describe("tool_no_errors", () => {
+  const assertion: Assertion = {
+    type: "tool_no_errors",
+    tool: "Edit",
+    message: "Edit should not error",
+  };
+
+  it("passes when tool is called with no errors", () => {
+    const trace = makeTrace([
+      { toolName: "Edit", isError: false },
+      { toolName: "Edit", isError: false },
+    ]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("0 errors");
+  });
+
+  it("passes vacuously when tool is not in the trace", () => {
+    const trace = makeTrace([{ toolName: "Read" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("vacuous");
+  });
+
+  it("fails when tool has errors", () => {
+    const trace = makeTrace([
+      { toolName: "Edit", isError: false },
+      { toolName: "Edit", isError: true },
+    ]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(false);
+    expect(result.detail).toContain("1 of 2");
+  });
+
+  it("passes when tool has multiple calls with zero errors", () => {
+    const trace = makeTrace([
+      { toolName: "Edit", isError: false },
+      { toolName: "Bash", isError: true },
+      { toolName: "Edit", isError: false },
+    ]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("2 Edit call(s), 0 errors");
+  });
+});
+
+describe("tool_preference", () => {
+  const assertion: Assertion = {
+    type: "tool_preference",
+    preferred: ["symbol_graph", "symbol_card"],
+    over: ["Grep"],
+    message: "Should prefer graph tools over grep",
+  };
+
+  it("passes when preferred tools used more than over tools", () => {
+    const trace = makeTrace([
+      { toolName: "symbol_graph" },
+      { toolName: "symbol_card" },
+      { toolName: "Grep" },
+    ]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("Preferred tools: 2");
+    expect(result.detail).toContain("over tools: 1");
+  });
+
+  it("fails when over tools used more than preferred tools", () => {
+    const trace = makeTrace([
+      { toolName: "Grep" },
+      { toolName: "Grep" },
+      { toolName: "symbol_graph" },
+    ]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(false);
+    expect(result.detail).toContain("wanted preferred > over");
+  });
+
+  it("passes vacuously when neither preferred nor over tools used", () => {
+    const trace = makeTrace([{ toolName: "Read" }, { toolName: "Edit" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("vacuous");
+  });
+
+  it("passes when preferred used and over not used", () => {
+    const trace = makeTrace([{ toolName: "symbol_graph" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+    expect(result.detail).toContain("Preferred tools: 1");
+    expect(result.detail).toContain("over tools: 0");
+  });
+
+  it("fails when over used but preferred not used", () => {
+    const trace = makeTrace([{ toolName: "Grep" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(false);
+    expect(result.detail).toContain("Preferred tools: 0");
+  });
+
+  it("matches tool names case-insensitively", () => {
+    const trace = makeTrace([{ toolName: "Symbol_Graph" }]);
+    const result = check(trace, assertion);
+    expect(result.pass).toBe(true);
+  });
+});
+
 // ── General / checkAssertions ────────────────────────────────
 
 describe("checkAssertions", () => {

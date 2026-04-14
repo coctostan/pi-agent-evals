@@ -101,7 +101,10 @@ export type Assertion =
   | ToolBeforeAssertion
   | ToolCalledWithAssertion
   | ParallelCallsAssertion
-  | CompletedAssertion;
+  | CompletedAssertion
+  | ToolUsedAnyAssertion
+  | ToolNoErrorsAssertion
+  | ToolPreferenceAssertion;
 
 /** Assert that a specific tool was used at least once. */
 export interface ToolUsedAssertion {
@@ -161,6 +164,35 @@ export interface ParallelCallsAssertion {
 /** Assert that the agent completed without errors. */
 export interface CompletedAssertion {
   type: "completed";
+  /** Human-readable failure message. */
+  message: string;
+}
+
+/** Assert that at least one of the listed tools was used. */
+export interface ToolUsedAnyAssertion {
+  type: "tool_used_any";
+  /** Tool names — at least one must appear in the trace. */
+  tools: string[];
+  /** Human-readable failure message. */
+  message: string;
+}
+
+/** Assert that a specific tool had no error results. */
+export interface ToolNoErrorsAssertion {
+  type: "tool_no_errors";
+  /** Tool name to check for errors. */
+  tool: string;
+  /** Human-readable failure message. */
+  message: string;
+}
+
+/** Assert that preferred tools were used more than alternative tools. Soft signal. */
+export interface ToolPreferenceAssertion {
+  type: "tool_preference";
+  /** Tools that should be preferred. */
+  preferred: string[];
+  /** Tools that should be avoided in favor of preferred. */
+  over: string[];
   /** Human-readable failure message. */
   message: string;
 }

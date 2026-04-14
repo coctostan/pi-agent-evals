@@ -1,0 +1,24 @@
+name: graph-for-structure
+description: Model should use codegraph tools for structural questions about code relationships
+category: tool-routing
+cwd: ~/pi/workspace/pi-hashline-readmap
+
+# NOTE: Requires an indexed codegraph in the target project.
+# Run this eval with cwd pointed at a project that has .codegraph/
+
+prompts:
+  - "What functions call registerReadTool in this project?"
+  - "Show me the dependencies of the edit tool — what does it import and use?"
+  - "What symbols does src/read.ts export, and where are they consumed?"
+
+assertions:
+  # Should use at least one codegraph tool
+  - type: tool_used_any
+    tools: [symbol_graph, symbol_card, symbol_search, impact, trace, graph_query, symbol_contract]
+    message: Should use a codegraph tool for structural code questions
+
+  # Bonus: should NOT fall back to just grepping
+  - type: tool_preference
+    preferred: [symbol_graph, symbol_card, impact, trace]
+    over: [Grep]
+    message: Should prefer graph tools over grep for structural questions

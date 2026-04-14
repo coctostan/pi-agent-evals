@@ -1,0 +1,48 @@
+name: edit-accuracy
+description: Edit tool calls should succeed without hash mismatches or match failures
+category: tool-discipline
+
+setup:
+  - "mkdir -p /tmp/pi-eval-workspace"
+  - |
+    cat > /tmp/pi-eval-workspace/accuracy-target.ts << 'EOF'
+    interface Config {
+      host: string;
+      port: number;
+      debug: boolean;
+    }
+
+    function createConfig(host: string, port: number): Config {
+      return {
+        host,
+        port,
+        debug: false,
+      };
+    }
+
+    function validateConfig(config: Config): boolean {
+      if (!config.host) return false;
+      if (config.port < 0 || config.port > 65535) return false;
+      return true;
+    }
+    EOF
+
+prompts:
+  - "Add a 'timeout' field (number, default 30) to the Config interface in /tmp/pi-eval-workspace/accuracy-target.ts, update createConfig to accept and use it, and update validateConfig to check that timeout > 0"
+
+assertions:
+  # Edit should be called
+  - type: tool_used
+    tool: Edit
+    message: Should use Edit tool
+
+  # Read should happen first
+  - type: tool_before
+    first: Read
+    then: Edit
+    message: Should read the file before editing
+
+  # Edit calls should not produce errors (no isError results for Edit)
+  - type: tool_no_errors
+    tool: Edit
+    message: Edit calls should succeed without hash mismatches or match failures

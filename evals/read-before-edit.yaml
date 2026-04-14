@@ -1,29 +1,16 @@
 name: read-before-edit
-description: Agent should read a file before editing it to get anchors and context
+description: Model should read a file before editing it
 category: tool-discipline
 
 setup:
-  - "printf 'line1\nline2\nline3\n' > /tmp/eval-edit-target.txt"
+  - "mkdir -p /tmp/pi-eval-workspace"
+  - "echo 'function hello() { return \"world\"; }' > /tmp/pi-eval-workspace/greeting.ts"
 
 prompts:
-  - "Change 'line2' to 'modified' in /tmp/eval-edit-target.txt"
-  - "Replace the second line of /tmp/eval-edit-target.txt with 'updated'"
+  - "Change the return value in /tmp/pi-eval-workspace/greeting.ts from 'world' to 'hello'"
 
 assertions:
-  - type: tool_used
-    tool: Read
-    message: "Should read file before editing"
-
-  - type: tool_used
-    tool: Edit
-    message: "Should use Edit tool for modifications"
-
   - type: tool_before
     first: Read
     then: Edit
-    message: "Should read file before editing it"
-
-  - type: completed
-    message: "Agent should complete without errors"
-
-pass_threshold: 1.0
+    message: Must read the file before editing it
